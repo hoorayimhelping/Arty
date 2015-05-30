@@ -1,4 +1,4 @@
-define([], function() {
+define(['expanding_circle'], function(ExpandingCircle) {
     var GameController = function(canvas_element, renderer, performance_monitor) {
         this.$canvas = canvas_element;
         this.renderer = renderer;
@@ -8,26 +8,34 @@ define([], function() {
 
         this.last_fame_time = +new Date();
 
-        this.arbitrary_circle = {
+        this.expanding_circle = new ExpandingCircle({
             x: 200,
             y: 200,
             current_radius: 0,
             desired_radius: 100
-        }
+        }, 1000);
+
     };
 
     GameController.prototype = {
         init: function() {
             this.context = this.$canvas.getContext('2d');
 
+            this.expanding_circle.init();
+
             this.renderer.init();
             this.performance_monitor.init();
+
+            this.render_
+
             this.update();
         },
 
-        update: function(dt) {
+        update: function() {
             var now = +new Date();
             var dt = now - this.last_fame_time;
+
+            this.expanding_circle.update(dt);
 
             this.render(dt);
             this.performance_monitor.update(dt);
@@ -41,7 +49,7 @@ define([], function() {
 
         render: function(dt) {
             this.context.clearRect(0, 0, this.$canvas.clientWidth, this.$canvas.clientHeight);
-            this.renderer.expandingCircle(this.arbitrary_circle, 1000, dt)
+            this.expanding_circle.render.bind(this.renderer)(this.expanding_circle.circle);
         }
     };
 
