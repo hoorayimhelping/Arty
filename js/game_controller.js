@@ -1,4 +1,4 @@
-define(['expanding_circle'], function(ExpandingCircle) {
+define(['renderables', 'expanding_circle'], function(Renderables, ExpandingCircle) {
     var GameController = function(canvas_element, renderer, performance_monitor) {
         this.$canvas = canvas_element;
         this.renderer = renderer;
@@ -15,6 +15,7 @@ define(['expanding_circle'], function(ExpandingCircle) {
             desired_radius: 100
         }, 1000);
 
+        this.renderables = new Renderables(this.renderer, [{fn: this.expanding_circle.render, args: [this.expanding_circle.circle]}]);
     };
 
     GameController.prototype = {
@@ -47,7 +48,7 @@ define(['expanding_circle'], function(ExpandingCircle) {
 
         render: function(dt) {
             this.context.clearRect(0, 0, this.$canvas.clientWidth, this.$canvas.clientHeight);
-            this.expanding_circle.render.bind(this.renderer)(this.expanding_circle.circle);
+            this.renderables.render()
         }
     };
 
