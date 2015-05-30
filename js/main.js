@@ -1,9 +1,10 @@
-requirejs(['game_controller', 'renderer'], function(GameController, Renderer) {
-	var canvas = document.getElementById('canvas');
-	var renderer = new Renderer(canvas.getContext('2d'));
+requirejs(['game_controller', 'renderer', 'performance_monitor'], function(GameController, Renderer, PerformanceMonitor) {
+    var $canvas = document.getElementById('canvas');
+    var $performance = document.getElementById('performance');
 
-	renderer.init();
+    var renderer = new Renderer($canvas.getContext('2d'));
+    var performance_monitor = new PerformanceMonitor($performance);
 
-    var controller = new GameController(canvas, renderer);
+    var controller = new GameController($canvas, renderer, performance_monitor);
     controller.init();
 });

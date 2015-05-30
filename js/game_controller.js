@@ -1,7 +1,10 @@
 define([], function() {
-    var GameController = function(canvas_element, renderer) {
+    var GameController = function(canvas_element, renderer, performance_monitor) {
         this.$canvas = canvas_element;
         this.renderer = renderer;
+        this.performance_monitor = performance_monitor;
+
+        this.total_time_running = 0;
 
         this.last_fame_time = +new Date();
 
@@ -17,6 +20,8 @@ define([], function() {
         init: function() {
             this.context = this.$canvas.getContext('2d');
 
+            this.renderer.init();
+            this.performance_monitor.init();
             this.update();
         },
 
@@ -25,7 +30,11 @@ define([], function() {
             var dt = now - this.last_fame_time;
 
             this.render(dt);
+            this.performance_monitor.update(dt);
 
+            this.total_time_running += dt;
+
+            // don't put anything below this
             this.last_fame_time = now;
             requestAnimationFrame(this.update.bind(this));
         },
