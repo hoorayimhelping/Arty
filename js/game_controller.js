@@ -26,8 +26,6 @@ define(['expanding_circle'], function(ExpandingCircle) {
             this.renderer.init();
             this.performance_monitor.init();
 
-            this.render_
-
             this.update();
         },
 
