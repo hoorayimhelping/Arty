@@ -1,8 +1,7 @@
 define([], function() {
     'use strict';
 
-    var Renderables = function(renderer, renderables) {
-        this.renderer = renderer;
+    var Renderables = function(renderables) {
         this.renderables = renderables || [];
     };
 
@@ -13,8 +12,8 @@ define([], function() {
 
         render: function() {
             this.renderables.map(function(renderable) {
-                renderable.render.apply(this, renderable.args);
-            }, this.renderer);
+                renderable.render(renderable.args);
+            });
         }
     };
 
