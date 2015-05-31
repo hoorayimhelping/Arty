@@ -13,11 +13,53 @@
 
             cursor: default;
         }
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -ms-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        .container {
+            border:3px solid pink;
+            margin: 0 auto;
+            padding: 0;
+            width: 95%;
+            height: 600px;
+
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -ms-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        canvas {
+            background: #FFF;
+            display: block;
+            margin: 0;
+            padding: 0;
+
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            -ms-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        #performance {
+            display: inline-block;
+            font-family: Helvetica;
+            font-size: 15px;
+        }
     </style>
 </head>
 <body class="noselect">
     <div id="performance"></div>
-    <canvas id="canvas" width="600" height="400" style="border:3px solid pink">It looks like your browser doesn't support Canvas</canvas>
+    <div class="container">
+        <canvas id="canvas">It looks like your browser doesn't support Canvas</canvas>
+    </div>
     <script data-main="js/main" src="lib/require.js"></script>
 </body>
 </html>
