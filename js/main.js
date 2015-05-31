@@ -30,7 +30,7 @@ requirejs(['game_controller', 'renderer', 'performance_monitor'], function(GameC
     };
 
     $canvas.addEventListener('click', createExplosion, false);
-    $canvas.addEventListener('touchend', createExplosion, false);
+    $canvas.addEventListener('touchstart', createExplosion, false);
 
      window.addEventListener('resize', function(event) {
         scaleCanvas();
