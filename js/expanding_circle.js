@@ -9,13 +9,14 @@ define([], function() {
     ExpandingCircle.prototype = {
         init: function() {
             this.total_animation_time = 0;
+            this.time_left = this.animation_duration;
         },
 
         update: function(dt) {
-            var time_left = this.animation_duration - this.total_animation_time;
-            if (time_left > 0) {
+            this.time_left = this.animation_duration - this.total_animation_time;
+            if (this.time_left > 0) {
                 var distance_to_radius = this.circle.desired_radius - this.circle.current_radius;
-                var radius_increase_step = distance_to_radius / time_left;
+                var radius_increase_step = distance_to_radius / this.time_left;
 
                 this.circle.current_radius += radius_increase_step * dt;
             }
@@ -38,7 +39,7 @@ define([], function() {
 
     var randomByteInt = function() {
         return Math.floor(Math.random() * 256);
-    }
+    };
 
     ExpandingCircle.CreateAtCoords = function(coords) {
         var circle = new ExpandingCircle({
@@ -47,7 +48,7 @@ define([], function() {
             current_radius: 0,
             desired_radius: 15 + Math.ceil(Math.random() * 100),
             color: 'rgb(' + randomByteInt() + ',' + randomByteInt() + ',' + randomByteInt() + ')'
-        }, 500 + Math.ceil(Math.random() * 2000));
+        }, 200 + Math.ceil(Math.random() * 2000));
 
         circle.init();
 
