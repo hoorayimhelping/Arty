@@ -9,7 +9,6 @@ requirejs(['game_controller', 'renderer', 'performance_monitor'], function(GameC
     controller.init();
 
     $canvas.addEventListener('click', function(event) {
-        console.log(event);
         controller.explosion({
             x: event.layerX,
             y: event.layerY
