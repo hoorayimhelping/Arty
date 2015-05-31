@@ -55,7 +55,8 @@ define(['updateables', 'renderables', 'expanding_circle'], function(Updateables,
         },
 
         render: function(dt) {
-            this.renderer.render(dt);
+            this.performance_monitor.render();
+            this.renderer.render();
             this.renderables.render()
         }
     };

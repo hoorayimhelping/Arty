@@ -14,10 +14,10 @@ define([], function() {
 
     Performance.prototype.init = function() {
       this.fps = 0;
-      this.elapsedTime = 0;
+      this.elapsedTime = 201;
       this.frames = 0;
 
-      this.draw();
+      this.render();
     };
 
     /**
@@ -29,26 +29,24 @@ define([], function() {
       this.elapsedTime += dt;
       this.fps += 1000 / dt;
       this.frames++;
-
-      if (this.elapsedTime >= 200) {
-        this.draw();
-
-        this.elapsedTime = 0;
-        this.fps = 0;
-        this.frames = 0;
-      }
     };
 
     /**
      * Draws the stats to the current html element's paragraph child
      */
-    Performance.prototype.draw = function() {
-      var adjustedFPS = (this.fps / this.frames).toFixed(2);
-      if (isNaN(adjustedFPS) || !isFinite(adjustedFPS)) {
-        adjustedFPS = 'Calculating';
-      }
+    Performance.prototype.render = function() {
+      if (this.elapsedTime >= 200) {
+        var adjustedFPS = (this.fps / this.frames).toFixed(2);
+        if (isNaN(adjustedFPS) || !isFinite(adjustedFPS)) {
+          adjustedFPS = 'Calculating';
+        }
 
-      this.$element.children[0].innerHTML = 'FPS: ' + adjustedFPS;
+        this.$element.children[0].innerHTML = 'FPS: ' + adjustedFPS;
+
+        this.elapsedTime = 0;
+        this.fps = 0;
+        this.frames = 0;
+      }
     };
 
     return Performance;
