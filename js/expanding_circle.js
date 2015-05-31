@@ -26,12 +26,31 @@ define([], function() {
         },
 
         render: function(circle) {
+            this.context.strokeStyle = circle.color;
             this.context.beginPath();
             this.context.arc(circle.x, circle.y, circle.current_radius, 0, 2 * Math.PI);
             this.context.stroke();
             this.context.closePath();
         }
     };
+
+    var randomByteInt = function() {
+        return Math.floor(Math.random() * 256);
+    }
+
+    ExpandingCircle.CreateAtCoords = function(coords) {
+        var circle = new ExpandingCircle({
+            x: coords.x,
+            y: coords.y,
+            current_radius: 0,
+            desired_radius: 15 + Math.ceil(Math.random() * 100),
+            color: 'rgb(' + randomByteInt() + ',' + randomByteInt() + ',' + randomByteInt() + ')'
+        }, 500 + Math.ceil(Math.random() * 2000));
+
+        circle.init();
+
+        return circle;
+    }
 
     return ExpandingCircle;
 });

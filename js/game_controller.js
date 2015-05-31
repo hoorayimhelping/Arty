@@ -1,27 +1,6 @@
 define(['updateables', 'renderables', 'expanding_circle'], function(Updateables, Renderables, ExpandingCircle) {
     'use strict';
 
-    var explosion = function(coords) {
-        var circle = new ExpandingCircle({
-            x: coords.x,
-            y: coords.y,
-            current_radius: 0,
-            desired_radius: 15 + Math.ceil(Math.random() * 100)
-        }, 500 + Math.ceil(Math.random() * 2000));
-
-        circle.init();
-
-        this.updateables.add({
-            update: circle.update,
-            context: circle
-        });
-
-        this.renderables.add({
-            render: circle.render,
-            args: [circle.circle]
-        });
-    }
-
     var GameController = function(canvas_element, renderer, performance_monitor) {
         this.$canvas = canvas_element;
         this.renderer = renderer;
@@ -35,7 +14,8 @@ define(['updateables', 'renderables', 'expanding_circle'], function(Updateables,
             x: 200,
             y: 200,
             current_radius: 0,
-            desired_radius: 100
+            desired_radius: 100,
+            color: "#000"
         }, 1000);
 
 
@@ -56,7 +36,17 @@ define(['updateables', 'renderables', 'expanding_circle'], function(Updateables,
         },
 
         explosion: function(coords) {
-            explosion.bind(this)(coords);
+            var circle = ExpandingCircle.CreateAtCoords(coords);
+
+            this.updateables.add({
+                update: circle.update,
+                context: circle
+            });
+
+            this.renderables.add({
+                render: circle.render,
+                args: [circle.circle]
+            });
         },
 
         update: function() {

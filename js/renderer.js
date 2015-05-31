@@ -5,8 +5,7 @@ define([], function() {
 
     Renderer.prototype = {
         init: function() {
-            this.context.fillStyle = "#000";
-            this.context.strokeStyle = "#FFF";
+            this.context.fillStyle = "#FFF";
         },
 
         render: function() {
