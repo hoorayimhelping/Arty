@@ -2,11 +2,22 @@
 <html>
 <head>
     <title>Tanks</title>
+    <style>
+        .noselect {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
 
-    <script data-main="js/main" src="lib/require.js"></script>
+            cursor: default;
+        }
+    </style>
 </head>
-<body>
-	<div id="performance"></div>
-    <canvas id="canvas" width="600" height="400">It looks like your browser doesn't support Canvas</canvas>
+<body class="noselect">
+    <div id="performance"></div>
+    <canvas id="canvas" width="600" height="400" style="border:3px solid pink">It looks like your browser doesn't support Canvas</canvas>
+    <script data-main="js/main" src="lib/require.js"></script>
 </body>
 </html>

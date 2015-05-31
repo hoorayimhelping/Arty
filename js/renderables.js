@@ -5,9 +5,13 @@ define([], function() {
     };
 
     Renderables.prototype = {
+        add: function(renderable) {
+            this.renderables.push(renderable);
+        },
+
         render: function() {
             this.renderables.map(function(renderable) {
-                renderable.fn.apply(this, renderable.args);
+                renderable.render.apply(this, renderable.args);
             }, this.renderer);
         }
     };
