@@ -1,4 +1,6 @@
 define([], function() {
+    'use strict';
+
     var Renderables = function(renderer, renderables) {
         this.renderer = renderer;
         this.renderables = renderables || [];

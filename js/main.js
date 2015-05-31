@@ -1,4 +1,6 @@
 requirejs(['game_controller', 'renderer', 'performance_monitor'], function(GameController, Renderer, PerformanceMonitor) {
+    'use strict';
+
     var $canvas = document.getElementById('canvas');
     var $performance = document.getElementById('performance');
 

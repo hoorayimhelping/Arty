@@ -1,4 +1,6 @@
 define([], function() {
+    'use strict';
+
     var Renderer = function(context) {
         this.context = context;
     };

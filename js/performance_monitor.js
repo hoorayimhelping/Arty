@@ -1,4 +1,6 @@
 define([], function() {
+    'use strict';
+
     /**
      * Instantiates Performance Stats. Creates a child p element of $element
      * @param HTMLElement $element: The HTML Element to draw the stats into

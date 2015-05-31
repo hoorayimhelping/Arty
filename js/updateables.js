@@ -1,4 +1,6 @@
 define([], function() {
+    'use strict';
+
     var Updateables = function(updateables) {
         this.updateables = updateables || [];
     };

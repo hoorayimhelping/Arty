@@ -1,4 +1,6 @@
 define([], function() {
+    'use strict';
+
     var ExpandingCircle = function(circle, animation_duration) {
         this.circle = circle;
         this.animation_duration = animation_duration;
