@@ -1,8 +1,7 @@
 define(['updateables', 'renderables', 'expanding_circle'], function(Updateables, Renderables, ExpandingCircle) {
     'use strict';
 
-    var GameController = function(canvas_element, renderer, performance_monitor) {
-        this.$canvas = canvas_element;
+    var GameController = function(renderer, performance_monitor) {
         this.renderer = renderer;
         this.performance_monitor = performance_monitor;
 
@@ -16,8 +15,6 @@ define(['updateables', 'renderables', 'expanding_circle'], function(Updateables,
 
     GameController.prototype = {
         init: function() {
-            this.context = this.$canvas.getContext('2d');
-
             this.renderer.init();
             this.performance_monitor.init();
 
