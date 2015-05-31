@@ -28,8 +28,7 @@ define(['updateables', 'renderables', 'expanding_circle'], function(Updateables,
             var circle = ExpandingCircle.CreateAtCoords(coords);
 
             this.updateables.add({
-                update: circle.update,
-                context: circle
+                update: circle.update.bind(circle)
             });
 
             this.renderables.add({
@@ -55,8 +54,9 @@ define(['updateables', 'renderables', 'expanding_circle'], function(Updateables,
         },
 
         render: function(dt) {
-            this.performance_monitor.render();
             this.renderer.render();
+
+            this.performance_monitor.render();
             this.renderables.render()
         }
     };
