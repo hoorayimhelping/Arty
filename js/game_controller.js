@@ -10,24 +10,13 @@ define(['updateables', 'renderables', 'expanding_circle'], function(Updateables,
 
         this.last_fame_time = +new Date();
 
-        this.expanding_circle = new ExpandingCircle({
-            x: 200,
-            y: 200,
-            current_radius: 0,
-            desired_radius: 100,
-            color: "#000"
-        }, 1000);
-
-
-        this.renderables = new Renderables(this.renderer, [{render: this.expanding_circle.render, args: [this.expanding_circle.circle]}]);
-        this.updateables = new Updateables([{update: this.expanding_circle.update, context: this.expanding_circle}]);
+        this.renderables = new Renderables(this.renderer);
+        this.updateables = new Updateables();
     };
 
     GameController.prototype = {
         init: function() {
             this.context = this.$canvas.getContext('2d');
-
-            this.expanding_circle.init();
 
             this.renderer.init();
             this.performance_monitor.init();
