@@ -33,6 +33,7 @@ requirejs(['game_controller', 'renderer', 'performance_monitor'], function(GameC
     $canvas.addEventListener('touchstart', createExplosion, false);
 
      window.addEventListener('resize', function(event) {
+        event.preventDefault();
         scaleCanvas();
      }, false);
 });
