@@ -13,7 +13,7 @@ define([], function() {
         update: function(dt) {
             this.updateables.map(function(updateable) {
                 updateable.update.call(updateable.context, dt);
-            }, null);
+            });
         }
     };
 
