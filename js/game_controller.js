@@ -9,7 +9,7 @@ define(['updateables', 'renderables', 'expanding_circle'], function(Updateables,
 
         this.last_fame_time = +new Date();
 
-        this.renderables = new Renderables(this.renderer);
+        this.renderables = new Renderables();
         this.updateables = new Updateables();
     };
 
@@ -29,8 +29,8 @@ define(['updateables', 'renderables', 'expanding_circle'], function(Updateables,
             });
 
             this.renderables.add({
-                render: circle.render,
-                args: [circle.circle]
+                render: circle.render.bind(this.renderer),
+                args: circle.circle
             });
         },
 
