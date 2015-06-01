@@ -1,4 +1,4 @@
-requirejs(['game_controller', 'renderer', 'performance_monitor'], function(GameController, Renderer, PerformanceMonitor) {
+requirejs(['engine/game_controller', 'engine/renderer', 'engine/performance_monitor'], function(GameController, Renderer, PerformanceMonitor) {
     'use strict';
 
     var $canvas = document.getElementById('canvas');

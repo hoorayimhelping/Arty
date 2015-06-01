@@ -1,4 +1,4 @@
-define(['updateables', 'renderables'], function(Updateables, Renderables) {
+define(['engine/updateables', 'engine/renderables'], function(Updateables, Renderables) {
     'use strict';
 
     var GameController = function(renderer, performance_monitor) {
