@@ -1,4 +1,4 @@
-define(['updateables', 'renderables', 'expanding_circle'], function(Updateables, Renderables, ExpandingCircle) {
+define(['updateables', 'renderables'], function(Updateables, Renderables) {
     'use strict';
 
     var GameController = function(renderer, performance_monitor) {
@@ -19,19 +19,6 @@ define(['updateables', 'renderables', 'expanding_circle'], function(Updateables,
             this.performance_monitor.init();
 
             this.update();
-        },
-
-        explosion: function(coords) {
-            var circle = ExpandingCircle.CreateAtCoords(coords);
-
-            this.updateables.add({
-                update: circle.update.bind(circle)
-            });
-
-            this.renderables.add({
-                render: circle.render.bind(this.renderer),
-                args: circle.circle
-            });
         },
 
         update: function() {

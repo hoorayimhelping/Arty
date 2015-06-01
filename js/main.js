@@ -22,17 +22,6 @@ requirejs(['game_controller', 'renderer', 'performance_monitor'], function(GameC
 
     scaleCanvas();
 
-    var createExplosion = function(event) {
-        event.preventDefault();
-
-        controller.explosion({
-            x: event.layerX,
-            y: event.layerY
-        });
-    };
-
-    $canvas.addEventListener('click', createExplosion, false);
-
      window.addEventListener('resize', function(event) {
         scaleCanvas();
      }, false);
