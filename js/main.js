@@ -17,6 +17,8 @@ requirejs(['game_controller', 'renderer', 'performance_monitor'], function(GameC
 
         $canvas.width = $container.offsetWidth - border_width;
         $canvas.height = $container.offsetHeight - border_width;
+
+        // changing the canvas width or height re-initializes the canvas' state, including transforms and fill colors
         renderer.init();
     };
 
