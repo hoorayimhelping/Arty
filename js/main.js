@@ -1,13 +1,22 @@
 requirejs([
     'engine/game_controller',
     'engine/renderer',
+    'engine/input',
     'engine/performance_monitor',
     'cannon'
-    ], function(GameController, Renderer, PerformanceMonitor, Cannon) {
+    ], function(GameController, Renderer, Input, PerformanceMonitor, Cannon) {
     'use strict';
 
     Math.toRadians = function(angle) {
         return (Math.PI / 180) * angle;
+    };
+
+    window.canvasWidth = function() {
+        return $canvas.clientWidth;
+    };
+
+    window.canvasHeight = function() {
+        return $canvas.clientHeight;
     };
 
     var $canvas = document.getElementById('canvas');
@@ -15,12 +24,18 @@ requirejs([
     var context = $canvas.getContext('2d');
 
     var renderer = new Renderer(context);
+    var input = new Input($canvas);
     var performance_monitor = new PerformanceMonitor($performance);
 
     var cannons = [new Cannon()];
 
-    var controller = new GameController(renderer, performance_monitor, cannons);
+    var controller = new GameController(renderer, input, performance_monitor, cannons);
     controller.init();
+
+    var initCannons = function() {
+        cannons[0].cannon.x = 0;
+        cannons[0].cannon.y = canvasHeight();
+    };
 
     var scaleCanvas = function() {
         var $container = document.getElementsByClassName('container')[0];
@@ -31,6 +46,7 @@ requirejs([
 
         // changing the canvas width or height re-initializes the canvas' state, including transforms and fill colors
         renderer.init();
+        initCannons();
     };
 
     scaleCanvas();

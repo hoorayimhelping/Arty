@@ -1,7 +1,7 @@
 define(['engine/updateables', 'engine/renderables'], function(Updateables, Renderables) {
     'use strict';
 
-    var GameController = function(renderer, performance_monitor, cannons) {
+    var GameController = function(renderer, input, performance_monitor, cannons) {
         this.renderer = renderer;
         this.performance_monitor = performance_monitor;
 
@@ -12,12 +12,15 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
         this.renderables = new Renderables();
         this.updateables = new Updateables();
 
+        this.input = input;
+
         this.cannons = cannons;
     };
 
     GameController.prototype = {
         init: function() {
             this.renderer.init();
+            this.input.init();
             this.performance_monitor.init();
 
             this.cannons.forEach(function(cannon) {
