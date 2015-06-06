@@ -1,6 +1,10 @@
 requirejs(['engine/game_controller', 'engine/renderer', 'engine/performance_monitor'], function(GameController, Renderer, PerformanceMonitor) {
     'use strict';
 
+    Math.toRadians = function(angle) {
+        return (Math.PI / 180) * angle;
+    };
+
     var $canvas = document.getElementById('canvas');
     var $performance = document.getElementById('performance');
     var context = $canvas.getContext('2d');
