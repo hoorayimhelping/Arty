@@ -1,7 +1,7 @@
-define(['engine/updateables', 'engine/renderables', 'cannon'], function(Updateables, Renderables, Cannon) {
+define(['engine/updateables', 'engine/renderables'], function(Updateables, Renderables) {
     'use strict';
 
-    var GameController = function(renderer, performance_monitor) {
+    var GameController = function(renderer, performance_monitor, cannons) {
         this.renderer = renderer;
         this.performance_monitor = performance_monitor;
 
@@ -12,7 +12,7 @@ define(['engine/updateables', 'engine/renderables', 'cannon'], function(Updateab
         this.renderables = new Renderables();
         this.updateables = new Updateables();
 
-        this.cannon = new Cannon();
+        this.cannons = cannons;
     };
 
     GameController.prototype = {
@@ -20,10 +20,12 @@ define(['engine/updateables', 'engine/renderables', 'cannon'], function(Updateab
             this.renderer.init();
             this.performance_monitor.init();
 
-            this.renderables.add({
-                render: this.cannon.render.bind(this.renderer),
-                args: this.cannon.getCannon()
-            });
+            this.cannons.forEach(function(cannon) {
+                this.renderables.add({
+                    render: cannon.render.bind(this.renderer),
+                    args: cannon.getCannon()
+                });
+            }, this);
 
             this.update();
         },

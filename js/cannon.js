@@ -18,6 +18,7 @@ define([], function() {
             var cos = Math.cos(Math.toRadians(cannon.angle));
 
             this.context.beginPath();
+            this.context.lineWidth = cannon.thickness / 2;
             this.context.arc(
                 cannon.x + (cos * (cannon.length * .25)) + cannon.thickness,
                 cannon.y - (sin * (cannon.length * .25)) + cannon.thickness * 2,

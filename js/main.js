@@ -1,4 +1,9 @@
-requirejs(['engine/game_controller', 'engine/renderer', 'engine/performance_monitor'], function(GameController, Renderer, PerformanceMonitor) {
+requirejs([
+    'engine/game_controller',
+    'engine/renderer',
+    'engine/performance_monitor',
+    'cannon'
+    ], function(GameController, Renderer, PerformanceMonitor, Cannon) {
     'use strict';
 
     Math.toRadians = function(angle) {
@@ -12,7 +17,9 @@ requirejs(['engine/game_controller', 'engine/renderer', 'engine/performance_moni
     var renderer = new Renderer(context);
     var performance_monitor = new PerformanceMonitor($performance);
 
-    var controller = new GameController(renderer, performance_monitor);
+    var cannons = [new Cannon()];
+
+    var controller = new GameController(renderer, performance_monitor, cannons);
     controller.init();
 
     var scaleCanvas = function() {
