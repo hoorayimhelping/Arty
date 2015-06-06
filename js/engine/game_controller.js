@@ -1,4 +1,4 @@
-define(['engine/updateables', 'engine/renderables', 'expanding_circle'], function(Updateables, Renderables, ExpandingCircle) {
+define(['engine/updateables', 'engine/renderables'], function(Updateables, Renderables) {
     'use strict';
 
     var GameController = function(renderer, performance_monitor) {
@@ -35,19 +35,6 @@ define(['engine/updateables', 'engine/renderables', 'expanding_circle'], functio
             // don't put anything below this
             this.last_fame_time = now;
             requestAnimationFrame(this.update.bind(this));
-        },
-
-        explosion: function(coords) {
-            var circle = ExpandingCircle.CreateAtCoords(coords);
-
-            this.updateables.add({
-                update: circle.update.bind(circle)
-            });
-
-            this.renderables.add({
-                render: circle.render.bind(this.renderer),
-                args: circle.circle
-            });
         },
 
         render: function(dt) {

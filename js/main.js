@@ -33,8 +33,6 @@ requirejs(['engine/game_controller', 'engine/renderer', 'engine/performance_moni
         });
     };
 
-    $canvas.addEventListener('click', createExplosion, false);
-
      window.addEventListener('resize', function(event) {
         scaleCanvas();
      }, false);
