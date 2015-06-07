@@ -23,16 +23,16 @@ define([], function() {
 
         handleKeypress: function(event) {
             if (event.which == 32) {
-                this.active_keys['space'] = true;
+                this.active_keys.space = true;
             }
         },
 
         handleKeyup: function(event) {
             if (event.which == 32) {
-                this.active_keys['space'] = false;
+                this.active_keys.space = false;
             }  
         }
     };
 
     return Input;
-})
+});

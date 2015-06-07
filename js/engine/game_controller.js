@@ -53,7 +53,7 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
             this.renderer.render();
 
             this.performance_monitor.render();
-            this.renderables.render()
+            this.renderables.render();
         }
     };
 

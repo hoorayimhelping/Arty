@@ -20,9 +20,9 @@ define([], function() {
             this.context.beginPath();
             this.context.lineWidth = cannon.thickness / 2;
             this.context.arc(
-                cannon.x + (cos * (cannon.length * .25)) + cannon.thickness,
-                cannon.y - (sin * (cannon.length * .25)) + cannon.thickness * 2,
-                cannon.length / 3 * .25,
+                cannon.x + (cos * (cannon.length * 0.25)) + cannon.thickness,
+                cannon.y - (sin * (cannon.length * 0.25)) + cannon.thickness * 2,
+                cannon.length / 3 * 0.25,
                 0,
                 2 * Math.PI
             );

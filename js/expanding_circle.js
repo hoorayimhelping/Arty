@@ -53,7 +53,7 @@ define([], function() {
         circle.init();
 
         return circle;
-    }
+    };
 
     return ExpandingCircle;
 });
