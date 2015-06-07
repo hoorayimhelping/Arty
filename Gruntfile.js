@@ -16,11 +16,18 @@ module.exports = function(grunt) {
         'js/**/*.js',
         'specs/**/*.js'
       ]
+    },
+    githooks: {
+      all: {
+        'pre-commit': 'test'
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+
+  grunt.loadNpmTasks('grunt-githooks');
 
   grunt.registerTask('test', ['jshint', 'jasmine']);
 
