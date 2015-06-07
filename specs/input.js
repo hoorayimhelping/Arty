@@ -1,8 +1,8 @@
 Function.prototype.bind = Function.prototype.bind || function (context) {
-  var fn = this;
-  return function () {
-    return fn.apply(context, arguments);
-  };
+    var fn = this;
+    return function () {
+        return fn.apply(context, arguments);
+    };
 };
 
 define(['js/engine/input'], function(Input) {
