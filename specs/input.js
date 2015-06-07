@@ -22,6 +22,28 @@ define(['js/engine/input'], function(Input) {
                 expect(input.active_keys.up).toBeFalsy();
                 expect(input.active_keys.down).toBeFalsy();
             });
-        })
+        });
+
+        describe("handling keypress and keyup", function() {
+            beforeEach(function() {
+                input = new Input();
+            });
+
+            it("sets space to being pressed when the key is pressed", function() {
+                var event = { which: 32 };
+
+                input.handleKeypress(event);
+                expect(input.active_keys).toBeTruthy();
+            });
+
+            it("sets space to being not pressed after the key is released", function() {
+                var event = { which: 32 };
+
+                input.active_keys.space = true;
+
+                input.handleKeyup(event);
+                expect(input.active_keys.space).toBeFalsy();
+            });
+        });
     });
 });
