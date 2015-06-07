@@ -4,9 +4,10 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     jasmine : {
-      src : 'js/**/*.js',
+      src : ['js/engine/input.js'],
       options : {
-        specs : 'specs/**/*.js'
+        specs : ['specs/input.js'],
+        template: require('grunt-template-jasmine-requirejs')
       }
     },
     jshint: {
@@ -24,5 +25,4 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['jshint', 'jasmine']);
 
   grunt.registerTask('default', ['test']);
-
 };
