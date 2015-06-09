@@ -6,7 +6,7 @@ module.exports = function(grunt) {
     jasmine : {
       src : ['js/engine/input.js'],
       options : {
-        specs : ['specs/input.js'],
+        specs : ['specs/engine/input.js'],
         template: require('grunt-template-jasmine-requirejs')
       }
     },

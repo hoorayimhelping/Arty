@@ -52,5 +52,24 @@ define(['js/engine/input'], function(Input) {
                 expect(input.active_keys.space).toBeFalsy();
             });
         });
+
+        describe("querying the state of pressed keys", function() {
+            beforeEach(function() {
+                input = new Input();
+                input.active_keys.up = true;
+            });
+
+            it("returns false if the key doesn't exist", function() {
+                expect(input.isPressed('bughlarg')).toBeFalsy();
+            });
+
+            it("returns false if the key isn't being pressed", function() {
+                expect(input.isPressed('down')).toBeFalsy();
+            });
+
+            it("returns true if the key is being pressed", function() {
+                expect(input.isPressed('up')).toBeTruthy();
+            });
+        });
     });
 });
