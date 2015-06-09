@@ -39,7 +39,7 @@ requirejs([
 
     var scaleCanvas = function() {
         var $container = document.getElementsByClassName('container')[0];
-        var border_width = parseInt(getComputedStyle($container)['border-width'], 10) * 2;
+        var border_width = parseInt(getComputedStyle($container)['border-left-width'], 10) + parseInt(getComputedStyle($container)['border-right-width'], 10);
 
         $canvas.width = $container.offsetWidth - border_width;
         $canvas.height = $container.offsetHeight - border_width;

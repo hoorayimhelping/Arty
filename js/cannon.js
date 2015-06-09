@@ -30,8 +30,8 @@ define([], function() {
             var sin = Math.sin(Math.toRadians(cannon.angle));
             var cos = Math.cos(Math.toRadians(cannon.angle));
 
-            this.context.beginPath();
             this.context.lineWidth = cannon.thickness / 2;
+            this.context.beginPath();
             this.context.arc(
                 cannon.x + (cos * (cannon.length * 0.25)) + cannon.thickness,
                 cannon.y - (sin * (cannon.length * 0.25)) + cannon.thickness * 2,
@@ -39,6 +39,10 @@ define([], function() {
                 0,
                 2 * Math.PI
             );
+            this.context.stroke();
+            this.context.closePath();
+
+            this.context.beginPath();
             this.context.moveTo(cannon.x, cannon.y);
             this.context.lineTo(
                 cannon.x + (cos * cannon.length), 
@@ -46,8 +50,8 @@ define([], function() {
             );
 
             this.context.lineWidth = cannon.thickness;
-            this.context.closePath();
             this.context.stroke();
+            this.context.closePath();
         },
 
         getCannon: function() {
