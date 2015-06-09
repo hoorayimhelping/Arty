@@ -5,6 +5,10 @@
     "name": "Bucky Schwarz",
     "url": "http://buckyschwarz.net"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:hoorayimhelping/Arty.git"
+  },
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-jasmine": "^0.8.2",
