@@ -11,8 +11,14 @@ define([], function() {
         },
 
         update: function(dt) {
-            this.updateables.map(function(updateable) {
-                updateable.update(dt);
+            this.updateables
+            .filter(function(updateable) {
+                return updateable.total_time < updateable.duration;
+            })
+            .map(function(updateable) {
+                var time_left = updateable.duration - updateable.total_time;
+                updateable.update(dt, updateable.angle, time_left);
+                updateable.total_time += dt;
             });
         }
     };

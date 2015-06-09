@@ -30,6 +30,8 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
                 });
             }, this);
 
+            document.addEventListener('keyup', this.handleKeyup.bind(this));
+
             this.update();
         },
 
@@ -54,7 +56,22 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
 
             this.performance_monitor.render();
             this.renderables.render();
-        }
+        },
+
+        move: function() {
+            this.updateables.add({
+                update: this.cannons[0].moveTo.bind(this.cannons[0]),
+                angle: 80,
+                duration: 2500,
+                total_time: 0
+            });
+        },
+
+        handleKeyup: function(event) {
+            if (event.which == 32) {
+                this.move();
+            }  
+        },
     };
 
     return GameController;

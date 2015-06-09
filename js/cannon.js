@@ -13,6 +13,19 @@ define([], function() {
     };
 
     Cannon.prototype = {
+        moveTo: function(dt, angle, time_left) {
+            if (time_left > 0) {
+                var distance_to_angle = Math.abs(angle - this.cannon.angle);
+                var distance_increase_step = distance_to_angle / time_left;
+
+                this.cannon.angle += distance_increase_step * dt;
+            }
+
+            if (this.cannon.angle >= angle) {
+                this.cannon.angle = angle;
+            }
+        },
+
         render: function(cannon) {
             var sin = Math.sin(Math.toRadians(cannon.angle));
             var cos = Math.cos(Math.toRadians(cannon.angle));
