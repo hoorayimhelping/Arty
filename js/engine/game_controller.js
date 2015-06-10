@@ -41,6 +41,14 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
 
             this.updateables.update(dt);
 
+            if (this.input.isPressed('up')) {
+                this.cannons[0].moveBy(dt, 0.07);
+            }
+
+            if (this.input.isPressed('down')) {
+                this.cannons[0].moveBy(dt, -0.07);
+            }
+
             this.render(dt);
             this.performance_monitor.update(dt);
 

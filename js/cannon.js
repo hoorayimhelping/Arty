@@ -26,6 +26,18 @@ define([], function() {
             }
         },
 
+        moveBy: function(dt, movement_amount) {
+            this.cannon.angle += movement_amount * dt;
+
+            if (this.cannon.angle > 85) {
+                this.cannon.angle = 85;
+            }
+
+            if (this.cannon.angle < 5) {
+                this.cannon.angle = 5;
+            }
+        },
+
         render: function(cannon) {
             var sin = Math.sin(Math.toRadians(cannon.angle));
             var cos = Math.cos(Math.toRadians(cannon.angle));
