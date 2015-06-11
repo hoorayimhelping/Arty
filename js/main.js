@@ -27,14 +27,14 @@ requirejs([
     var input = new Input($canvas);
     var performance_monitor = new PerformanceMonitor($performance);
 
-    var cannons = [new Cannon()];
+    var cannon = new Cannon();
 
-    var controller = new GameController(renderer, input, performance_monitor, cannons);
+    var controller = new GameController(renderer, input, performance_monitor, cannon);
     controller.init();
 
     var initCannons = function() {
-        cannons[0].cannon.x = 0;
-        cannons[0].cannon.y = canvasHeight();
+        cannon.cannon.x = 0;
+        cannon.cannon.y = canvasHeight();
     };
 
     var scaleCanvas = function() {

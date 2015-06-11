@@ -38,6 +38,10 @@ define([], function() {
             }
         },
 
+        update: function(dt) {
+
+        },
+
         render: function(cannon) {
             var sin = Math.sin(Math.toRadians(cannon.angle));
             var cos = Math.cos(Math.toRadians(cannon.angle));

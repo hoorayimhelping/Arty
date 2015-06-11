@@ -1,7 +1,7 @@
 define(['engine/updateables', 'engine/renderables'], function(Updateables, Renderables) {
     'use strict';
 
-    var GameController = function(renderer, input, performance_monitor, cannons) {
+    var GameController = function(renderer, input, performance_monitor, cannon) {
         this.renderer = renderer;
         this.performance_monitor = performance_monitor;
 
@@ -14,7 +14,7 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
 
         this.input = input;
 
-        this.cannons = cannons;
+        this.cannon = cannon;
     };
 
     GameController.prototype = {
@@ -23,7 +23,7 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
             this.input.init();
             this.performance_monitor.init();
 
-            this.cannons.forEach(function(cannon) {
+            [this.cannon].forEach(function(cannon) {
                 this.renderables.add({
                     render: cannon.render.bind(this.renderer),
                     args: cannon.getCannon()
@@ -42,11 +42,11 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
             this.updateables.update(dt);
 
             if (this.input.isPressed('up')) {
-                this.cannons[0].moveBy(dt, 0.07);
+                this.cannon.moveBy(dt, 0.07);
             }
 
             if (this.input.isPressed('down')) {
-                this.cannons[0].moveBy(dt, -0.07);
+                this.cannon.moveBy(dt, -0.07);
             }
 
             this.render(dt);
@@ -68,7 +68,7 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
 
         move: function() {
             this.updateables.add({
-                update: this.cannons[0].moveTo.bind(this.cannons[0]),
+                update: this.cannon.moveTo.bind(this.cannon),
                 angle: 80,
                 duration: 2500,
                 total_time: 0
@@ -77,7 +77,7 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
 
         handleKeyup: function(event) {
             if (event.which == 32) {
-                this.move();
+                
             }  
         },
     };
