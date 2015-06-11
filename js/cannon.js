@@ -1,5 +1,9 @@
-define([], function() {
+define(['engine/math/trig'], function(Trig) {
     'use strict';
+
+    var Helper = {
+
+    };
 
     var Cannon = function() {
         this.cannon = {
@@ -45,14 +49,12 @@ define([], function() {
         },
 
         render: function(cannon) {
-            var sin = Math.sin(Math.toRadians(cannon.angle));
-            var cos = Math.cos(Math.toRadians(cannon.angle));
 
             this.context.lineWidth = cannon.thickness / 2;
             this.context.beginPath();
             this.context.arc(
-                cannon.x + (cos * (cannon.length * 0.25)) + cannon.thickness,
-                cannon.y - (sin * (cannon.length * 0.25)) + cannon.thickness * 2,
+                cannon.x + cannon.thickness + (Trig.getXComponent(cannon.angle, cannon.length) * 0.25),
+                cannon.y - (Trig.getYComponent(cannon.angle, cannon.length) * 0.25) + (cannon.thickness * 2),
                 cannon.length / 3 * 0.25,
                 0,
                 2 * Math.PI
@@ -63,8 +65,8 @@ define([], function() {
             this.context.beginPath();
             this.context.moveTo(cannon.x, cannon.y);
             this.context.lineTo(
-                cannon.x + (cos * cannon.length), 
-                cannon.y - (sin * cannon.length)
+                cannon.x + Trig.getXComponent(cannon.angle, cannon.length), 
+                cannon.y -Trig.getYComponent(cannon.angle, cannon.length)
             );
 
             this.context.lineWidth = cannon.thickness;
