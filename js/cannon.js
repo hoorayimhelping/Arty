@@ -9,6 +9,7 @@ define([], function() {
             thickness: 3,
             x: 200,
             y: 200,
+            movement_speed: 0.07
         };
     };
 
@@ -26,8 +27,9 @@ define([], function() {
             }
         },
 
-        moveBy: function(dt, movement_amount) {
-            this.cannon.angle += movement_amount * dt;
+        moveBy: function(dt, movement_direction) {
+            movement_direction = movement_direction || 1;
+            this.cannon.angle += movement_direction * this.cannon.movement_speed * dt;
 
             if (this.cannon.angle > 85) {
                 this.cannon.angle = 85;

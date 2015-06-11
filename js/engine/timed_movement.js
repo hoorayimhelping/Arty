@@ -1,17 +1,17 @@
 define([], function() {
     'use strict';
 
-    var Updateables = function(updateables) {
-        this.updateables = updateables || [];
+    var TimedMovement = function(timed_movements) {
+        this.timed_movements = timed_movements || [];
     };
 
-    Updateables.prototype = {
-        add: function(updateable) {
-            this.updateables.push(updateable);
+    TimedMovement.prototype = {
+        create: function(updateable) {
+            this.timed_movements.push(updateable);
         },
 
         update: function(dt) {
-            this.updateables
+            this.timed_movements
             .filter(function(updateable) {
                 return updateable.total_time < updateable.duration;
             })
@@ -23,5 +23,5 @@ define([], function() {
         }
     };
 
-    return Updateables;
+    return TimedMovement;
 });

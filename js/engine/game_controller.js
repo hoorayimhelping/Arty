@@ -1,4 +1,4 @@
-define(['engine/updateables', 'engine/renderables'], function(Updateables, Renderables) {
+define(['engine/timed_movement', 'engine/renderables'], function(TimedMovement, Renderables) {
     'use strict';
 
     var GameController = function(renderer, input, performance_monitor, cannon) {
@@ -10,7 +10,7 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
         this.last_fame_time = +new Date();
 
         this.renderables = new Renderables();
-        this.updateables = new Updateables();
+        this.timed_movements = new TimedMovement();
 
         this.input = input;
 
@@ -39,14 +39,14 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
             var now = +new Date();
             var dt = now - this.last_fame_time;
 
-            this.updateables.update(dt);
+            this.timed_movements.update(dt);
 
             if (this.input.isPressed('up')) {
-                this.cannon.moveBy(dt, 0.07);
+                this.cannon.moveBy(dt, 1);
             }
 
             if (this.input.isPressed('down')) {
-                this.cannon.moveBy(dt, -0.07);
+                this.cannon.moveBy(dt, -1);
             }
 
             this.render(dt);
@@ -67,7 +67,7 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
         },
 
         move: function() {
-            this.updateables.add({
+            this.timed_movements.create({
                 update: this.cannon.moveTo.bind(this.cannon),
                 angle: 80,
                 duration: 2500,
