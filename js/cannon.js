@@ -1,10 +1,6 @@
 define(['engine/math/trig'], function(Trig) {
     'use strict';
 
-    var Helper = {
-
-    };
-
     var Cannon = function() {
         this.cannon = {
             angle: 45,
@@ -42,10 +38,6 @@ define(['engine/math/trig'], function(Trig) {
             if (this.cannon.angle < 5) {
                 this.cannon.angle = 5;
             }
-        },
-
-        update: function(dt) {
-
         },
 
         render: function(cannon) {
