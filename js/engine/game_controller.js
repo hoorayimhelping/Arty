@@ -1,4 +1,4 @@
-define(['engine/timed_movement', 'engine/renderables'], function(TimedMovement, Renderables) {
+define(['engine/timed_movement', 'engine/updateables', 'engine/renderables'], function(TimedMovement, Updateables, Renderables) {
     'use strict';
 
     var GameController = function(renderer, input, performance_monitor, cannon) {
@@ -9,6 +9,7 @@ define(['engine/timed_movement', 'engine/renderables'], function(TimedMovement, 
 
         this.last_fame_time = +new Date();
 
+        this.updateables = new Updateables();
         this.renderables = new Renderables();
         this.timed_movements = new TimedMovement();
 
@@ -40,14 +41,7 @@ define(['engine/timed_movement', 'engine/renderables'], function(TimedMovement, 
             var dt = now - this.last_fame_time;
 
             this.timed_movements.update(dt);
-
-            if (this.input.isPressed('up')) {
-                this.cannon.moveBy(dt, 1);
-            }
-
-            if (this.input.isPressed('down')) {
-                this.cannon.moveBy(dt, -1);
-            }
+            this.cannon.update(dt, this.input);
 
             this.render(dt);
             this.performance_monitor.update(dt);
@@ -66,18 +60,9 @@ define(['engine/timed_movement', 'engine/renderables'], function(TimedMovement, 
             this.renderables.render();
         },
 
-        move: function() {
-            this.timed_movements.create({
-                update: this.cannon.moveTo.bind(this.cannon),
-                angle: 80,
-                duration: 2500,
-                total_time: 0
-            });
-        },
-
         handleKeyup: function(event) {
             if (event.which == 32) {
-                
+                this.cannon.fire();
             }  
         },
     };

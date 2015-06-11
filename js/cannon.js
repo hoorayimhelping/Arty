@@ -9,7 +9,7 @@ define(['engine/math/trig'], function(Trig) {
             thickness: 3,
             x: 200,
             y: 200,
-            movement_speed: 0.07
+            movement_speed: 0.07 // heh took a few days to notice james bond movement speed
         };
     };
 
@@ -27,9 +27,8 @@ define(['engine/math/trig'], function(Trig) {
             }
         },
 
-        moveBy: function(dt, movement_direction) {
-            movement_direction = movement_direction || 1;
-            this.cannon.angle += movement_direction * this.cannon.movement_speed * dt;
+        moveBy: function(amount) {
+            this.cannon.angle += amount;
 
             if (this.cannon.angle > 85) {
                 this.cannon.angle = 85;
@@ -40,8 +39,18 @@ define(['engine/math/trig'], function(Trig) {
             }
         },
 
-        render: function(cannon) {
+        update: function(dt, input) {
+            if (input.isPressed('up')) {
+                this.moveBy(this.cannon.movement_speed * dt);
+            }
 
+            if (input.isPressed('down')) {
+                this.moveBy(-this.cannon.movement_speed * dt);
+            }
+        },
+
+
+        render: function(cannon) {
             this.context.lineWidth = cannon.thickness / 2;
             this.context.beginPath();
             this.context.arc(
