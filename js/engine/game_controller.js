@@ -27,7 +27,7 @@ define(['engine/timed_movement', 'engine/updateables', 'engine/renderables'], fu
             [this.cannon].forEach(function(cannon) {
                 this.renderables.add({
                     render: cannon.render.bind(this.renderer),
-                    args: cannon.getCannon()
+                    args: cannon.getArgs()
                 });
             }, this);
 
@@ -62,7 +62,16 @@ define(['engine/timed_movement', 'engine/updateables', 'engine/renderables'], fu
 
         handleKeyup: function(event) {
             if (event.which == 32) {
-                this.cannon.fire();
+                var projectile = this.cannon.projectile;
+
+                this.updateables.add({
+                    update: projectile.update.bind(projectile.context)
+                });
+
+                this.renderables.add({
+                    render: projectile.render.bind(this.renderer),
+                    args: projectile.getArgs()
+                });
             }  
         },
     };

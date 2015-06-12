@@ -3,8 +3,9 @@ requirejs([
     'engine/renderer',
     'engine/input',
     'engine/performance_monitor',
-    'cannon'
-    ], function(GameController, Renderer, Input, PerformanceMonitor, Cannon) {
+    'cannon',
+    'projectile'
+    ], function(GameController, Renderer, Input, PerformanceMonitor, Cannon, Projectile) {
     'use strict';
 
     Math.toRadians = function(angle) {
@@ -27,7 +28,9 @@ requirejs([
     var input = new Input($canvas);
     var performance_monitor = new PerformanceMonitor($performance);
 
-    var cannon = new Cannon();
+    var projectile = new Projectile();
+
+    var cannon = new Cannon(projectile);
 
     var controller = new GameController(renderer, input, performance_monitor, cannon);
     controller.init();

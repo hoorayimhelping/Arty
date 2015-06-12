@@ -1,7 +1,9 @@
 define(['engine/math/trig'], function(Trig) {
     'use strict';
 
-    var Cannon = function() {
+    var Cannon = function(projectile) {
+        this.projectile = projectile;
+
         this.cannon = {
             angle: 45,
             muzzle_velocity: 0,
@@ -49,6 +51,13 @@ define(['engine/math/trig'], function(Trig) {
             }
         },
 
+        fire: function() {
+            return {
+                update: this.projectile.update,
+                render: this.projectile.render,
+                context: this.projectile
+            };
+        },
 
         render: function(cannon) {
             this.context.lineWidth = cannon.thickness / 2;
@@ -75,7 +84,7 @@ define(['engine/math/trig'], function(Trig) {
             this.context.closePath();
         },
 
-        getCannon: function() {
+        getArgs: function() {
             return this.cannon;
         }
     };
