@@ -29,11 +29,7 @@ define([], function() {
         },
 
         render: function(circle) {
-            this.context.strokeStyle = circle.color;
-            this.context.beginPath();
-            this.context.arc(circle.x, circle.y, circle.current_radius, 0, 2 * Math.PI);
-            this.context.stroke();
-            this.context.closePath();
+            this.circle(circle.x, circle.y, circle.current_radius, { strokeStyle: circle.color });
         }
     };
 

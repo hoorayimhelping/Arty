@@ -72,7 +72,7 @@ define(['engine/math/trig'], function(Trig) {
                 cannon.y,
                 cannon.x + Trig.getXComponent(cannon.angle, cannon.length), 
                 cannon.y -Trig.getYComponent(cannon.angle, cannon.length),
-                cannon.thickness
+                { lineWidth: cannon.thickness }
             );
         },
 
