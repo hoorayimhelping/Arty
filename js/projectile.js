@@ -13,7 +13,7 @@ define(['engine/math/trig'], function(Trig) {
         getArgs: function() {
             return this.projectile;
         }
-    }
+    };
 
     return Projectile;
 });

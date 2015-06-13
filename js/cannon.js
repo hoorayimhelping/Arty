@@ -60,28 +60,20 @@ define(['engine/math/trig'], function(Trig) {
         },
 
         render: function(cannon) {
-            this.context.lineWidth = cannon.thickness / 2;
-            this.context.beginPath();
-            this.context.arc(
-                cannon.x + cannon.thickness + (Trig.getXComponent(cannon.angle, cannon.length) * 0.25),
-                cannon.y - (Trig.getYComponent(cannon.angle, cannon.length) * 0.25) + (cannon.thickness * 2),
+            this.circle(
+                cannon.x + cannon.thickness + (Trig.getXComponent(cannon.angle, cannon.length) * 0.05),
+                cannon.y - (Trig.getYComponent(cannon.angle, cannon.length) * 0.05) + (cannon.thickness),
                 cannon.length / 3 * 0.25,
-                0,
-                2 * Math.PI
+                cannon.thickness / 2
             );
-            this.context.stroke();
-            this.context.closePath();
 
-            this.context.beginPath();
-            this.context.moveTo(cannon.x, cannon.y);
-            this.context.lineTo(
+            this.line(
+                cannon.x, 
+                cannon.y,
                 cannon.x + Trig.getXComponent(cannon.angle, cannon.length), 
-                cannon.y -Trig.getYComponent(cannon.angle, cannon.length)
+                cannon.y -Trig.getYComponent(cannon.angle, cannon.length),
+                cannon.thickness
             );
-
-            this.context.lineWidth = cannon.thickness;
-            this.context.stroke();
-            this.context.closePath();
         },
 
         getArgs: function() {
