@@ -4,6 +4,9 @@ define(['engine/math/trig'], function(Trig) {
     var Cannon = function(projectile) {
         this.projectile = projectile;
 
+        this.max_angle = 85;
+        this.min_angle = 5;
+
         this.cannon = {
             angle: 45,
             muzzle_velocity: 0,
@@ -32,12 +35,12 @@ define(['engine/math/trig'], function(Trig) {
         moveBy: function(amount) {
             this.cannon.angle += amount;
 
-            if (this.cannon.angle > 85) {
-                this.cannon.angle = 85;
+            if (this.cannon.angle > this.max_angle) {
+                this.cannon.angle = this.max_angle;
             }
 
-            if (this.cannon.angle < 5) {
-                this.cannon.angle = 5;
+            if (this.cannon.angle < this.min_angle) {
+                this.cannon.angle = this.min_angle;
             }
         },
 
