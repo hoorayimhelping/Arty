@@ -29,6 +29,7 @@ requirejs([
     var performance_monitor = new PerformanceMonitor($performance);
 
     var projectile = new Projectile();
+    projectile.init();
 
     var cannon = new Cannon(projectile);
 

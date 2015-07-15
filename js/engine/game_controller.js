@@ -40,7 +40,7 @@ define(['engine/timed_movement', 'engine/updateables', 'engine/renderables'], fu
             var now = +new Date();
             var dt = now - this.last_fame_time;
 
-            this.timed_movements.update(dt);
+            this.updateables.update(dt);
             this.cannon.update(dt, this.input);
 
             this.render(dt);
@@ -62,7 +62,7 @@ define(['engine/timed_movement', 'engine/updateables', 'engine/renderables'], fu
 
         handleKeyup: function(event) {
             if (event.which == 32) {
-                var projectile = this.cannon.projectile;
+                var projectile = this.cannon.fire();
 
                 this.updateables.add({
                     update: projectile.update.bind(projectile.context)

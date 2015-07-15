@@ -1,6 +1,14 @@
 define(['engine/math/trig'], function(Trig) {
     'use strict';
 
+    var getCannonTipX = function(cannon) {
+        return cannon.x + Trig.getXComponent(cannon.angle, cannon.length);
+    };
+
+    var getCannonTipY = function(cannon) {
+        return cannon.y -Trig.getYComponent(cannon.angle, cannon.length);
+    };
+
     var Cannon = function(projectile) {
         this.projectile = projectile;
 
@@ -9,12 +17,12 @@ define(['engine/math/trig'], function(Trig) {
 
         this.cannon = {
             angle: 45,
-            muzzle_velocity: 0,
+            muzzle_velocity: 0.01,
             length: 75,
             thickness: 3,
             x: 200,
             y: 200,
-            movement_speed: 0.07 // heh took a few days to notice james bond movement speed
+            movement_speed: 0.07
         };
     };
 
@@ -55,10 +63,16 @@ define(['engine/math/trig'], function(Trig) {
         },
 
         fire: function() {
+            this.projectile.projectile.x = getCannonTipX(this.cannon);
+            this.projectile.projectile.y = getCannonTipY(this.cannon);
+            this.projectile.projectile.angle = this.cannon.angle;
+            this.projectile.projectile.starting_acceleration = this.cannon.muzzle_velocity;
+
             return {
                 update: this.projectile.update,
                 render: this.projectile.render,
-                context: this.projectile
+                context: this.projectile,
+                getArgs: this.projectile.getArgs.bind(this.projectile)
             };
         },
 
@@ -73,8 +87,8 @@ define(['engine/math/trig'], function(Trig) {
             this.line(
                 cannon.x, 
                 cannon.y,
-                cannon.x + Trig.getXComponent(cannon.angle, cannon.length), 
-                cannon.y -Trig.getYComponent(cannon.angle, cannon.length),
+                getCannonTipX(cannon),
+                getCannonTipY(cannon),
                 { lineWidth: cannon.thickness }
             );
         },
