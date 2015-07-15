@@ -1,4 +1,4 @@
-define(['engine/math/trig'], function(Trig) {
+define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
     'use strict';
 
     var Projectile = function() {
@@ -29,7 +29,7 @@ define(['engine/math/trig'], function(Trig) {
             this.projectile.velocity = Math.min(this.projectile.terminal_velocity, this.projectile.velocity);
 
             this.projectile.x += Trig.getXComponent(this.projectile.angle, this.projectile.velocity);
-            this.projectile.y -= Trig.getYComponent(this.projectile.angle, this.projectile.velocity);
+            this.projectile.y -= (Trig.getYComponent(this.projectile.angle, this.projectile.velocity) + Physics.ApplyGravity());
         },
 
         render: function(projectile) {
@@ -38,7 +38,7 @@ define(['engine/math/trig'], function(Trig) {
                 projectile.y,
                 projectile.x + Trig.getXComponent(projectile.angle, projectile.length), 
                 projectile.y -Trig.getYComponent(projectile.angle, projectile.length),
-                { lineWidth: projectile.thickness, strokeStyle: '#F30' }
+                { lineWidth: projectile.thickness }
             );
         },
         getArgs: function() {
