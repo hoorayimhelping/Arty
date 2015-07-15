@@ -38,7 +38,7 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
                 projectile.y,
                 projectile.x + Trig.getXComponent(projectile.angle, projectile.length), 
                 projectile.y -Trig.getYComponent(projectile.angle, projectile.length),
-                { lineWidth: projectile.thickness }
+                { lineWidth: projectile.thickness, strokeStyle: "#F30" }
             );
         },
         getArgs: function() {

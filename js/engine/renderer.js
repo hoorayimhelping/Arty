@@ -7,9 +7,7 @@ define([], function() {
 
     Renderer.prototype = {
         init: function() {
-            this.context.fillStyle = "#FFF";
-            this.context.strokeStyle = "#000";
-            this.context.lineWidth = 5;
+            this.defaults();
         },
 
         render: function() {
@@ -17,6 +15,7 @@ define([], function() {
         },
 
         options: function(options) {
+            this.defaults();
             if (options.hasOwnProperty('lineWidth')) {
                 this.context.lineWidth = options.lineWidth;
             }
@@ -24,6 +23,12 @@ define([], function() {
             if (options.hasOwnProperty('strokeStyle')) {
                 this.context.strokeStyle = options.strokeStyle;
             }
+        },
+
+        defaults: function() {
+            this.context.fillStyle = "#FFF";
+            this.context.strokeStyle = "#000";
+            this.context.lineWidth = 5;
         },
 
         circle: function(x, y, radius, options) {
