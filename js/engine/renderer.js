@@ -38,9 +38,6 @@ define([], function() {
         line: function(start_x, start_y, end_x, end_y, options) {
             this.options(options);
 
-            this.context.stroke();
-            this.context.closePath();
-
             this.context.beginPath();
             this.context.moveTo(start_x, start_y);
             this.context.lineTo(
