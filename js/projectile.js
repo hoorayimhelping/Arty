@@ -17,7 +17,7 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
                 acceleration: 0,
                 starting_acceleration: 0,
                 max_acceleration: 0.35,
-                terminal_velocity: 10
+                terminal_velocity: 5.5
             };
         },
 

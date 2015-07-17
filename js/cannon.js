@@ -12,8 +12,8 @@ define(['engine/math/trig'], function(Trig) {
     var Cannon = function(projectile) {
         this.projectile = projectile;
 
-        this.max_angle = 85;
-        this.min_angle = 5;
+        this.max_angle = 70;
+        this.min_angle = 20;
 
         this.cannon = {
             angle: 45,
@@ -22,7 +22,7 @@ define(['engine/math/trig'], function(Trig) {
             thickness: 3,
             x: 200,
             y: 200,
-            movement_speed: 0.07
+            movement_speed: 0.07,
         };
     };
 
@@ -77,13 +77,7 @@ define(['engine/math/trig'], function(Trig) {
         },
 
         render: function(cannon) {
-            this.circle(
-                cannon.x + cannon.thickness + (Trig.getXComponent(cannon.angle, cannon.length) * 0.05),
-                cannon.y - (Trig.getYComponent(cannon.angle, cannon.length) * 0.05) + (cannon.thickness),
-                cannon.length / 3 * 0.25,
-                cannon.thickness / 2
-            );
-
+            // draw barrel
             this.line(
                 cannon.x, 
                 cannon.y,
