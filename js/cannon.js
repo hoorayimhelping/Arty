@@ -63,6 +63,8 @@ define(['engine/math/trig'], function(Trig) {
         },
 
         fire: function() {
+            this.projectile.init();
+
             this.projectile.projectile.x = getCannonTipX(this.cannon);
             this.projectile.projectile.y = getCannonTipY(this.cannon);
             this.projectile.projectile.angle = this.cannon.angle;
