@@ -8,10 +8,6 @@ requirejs([
     ], function(GameController, Renderer, Input, PerformanceMonitor, Cannon, Projectile) {
     'use strict';
 
-    Math.toRadians = function(angle) {
-        return (Math.PI / 180) * angle;
-    };
-
     window.canvasWidth = function() {
         return $canvas.clientWidth;
     };
