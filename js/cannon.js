@@ -17,7 +17,7 @@ define(['engine/math/trig'], function(Trig) {
 
         this.cannon = {
             angle: 45,
-            muzzle_velocity: 0.01,
+            muzzle_velocity: 0.05,
             length: 75,
             thickness: 3,
             x: 200,
@@ -66,7 +66,8 @@ define(['engine/math/trig'], function(Trig) {
             this.projectile.projectile.x = getCannonTipX(this.cannon);
             this.projectile.projectile.y = getCannonTipY(this.cannon);
             this.projectile.projectile.angle = this.cannon.angle;
-            this.projectile.projectile.starting_acceleration = this.cannon.muzzle_velocity;
+            this.projectile.projectile.starting_acceleration.x = Trig.getXComponent(this.cannon.angle, this.cannon.muzzle_velocity);
+            this.projectile.projectile.starting_acceleration.y = Trig.getYComponent(this.cannon.angle, this.cannon.muzzle_velocity);
 
             return {
                 update: this.projectile.update,

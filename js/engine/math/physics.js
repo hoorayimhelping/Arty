@@ -3,7 +3,7 @@ define([], function() {
 
     return {
         ApplyGravity: function() {
-            return 0;
+            return 0.0009;
         }
     };
 });
