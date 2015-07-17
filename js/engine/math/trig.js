@@ -12,10 +12,18 @@ define([], function() {
 
         getComponent: function(component, angle, length) {
             if (component === 'y') {
-                return Math.sin(Math.toRadians(angle)) * length;
+                return Math.sin(this.toRadians(angle)) * length;
             } else {
-                return Math.cos(Math.toRadians(angle)) * length;
+                return Math.cos(this.toRadians(angle)) * length;
             }
+        },
+
+        toRadians: function(angle) {
+            return (Math.PI / 180) * angle;
+        },
+
+        toDegrees: function(angle) {
+            return (180 / Math.PI) * angle;
         }
     };
 });
