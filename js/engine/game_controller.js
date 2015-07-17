@@ -62,6 +62,12 @@ define(['engine/timed_movement', 'engine/updateables', 'engine/renderables'], fu
 
         handleKeyup: function(event) {
             if (event.which == 32) {
+                this.updateables.updateables = this.updateables.updateables.filter(function(updateable) {
+                    if (typeof updateable === 'function' && updateable.hasOwnProperty('projectile')) {
+                        return false;
+                    }
+                });
+
                 var projectile = this.cannon.fire();
 
                 this.updateables.add({
