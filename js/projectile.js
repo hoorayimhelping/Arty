@@ -35,9 +35,6 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
         },
 
         update: function(dt) {
-            // Trig.getXComponent(this.cannon.angle, this.cannon.muzzle_velocity);
-            // this.projectile.projectile.starting_acceleration.y = Math.cos(Trig.toRadians(90 - this.cannon.angle)) * this.cannon.muzzle_velocity;
-
             this.projectile.acceleration.x += Trig.getXComponent(this.projectile.angle, this.projectile.starting_acceleration.x) * dt;
             this.projectile.acceleration.y += Trig.getYComponent(this.projectile.angle, this.projectile.starting_acceleration.y) * dt;
             this.projectile.acceleration.y -= Physics.ApplyGravity(this.projectile.angle) * dt;
