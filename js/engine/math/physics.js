@@ -1,9 +1,9 @@
-define([], function() {
+define(['engine/math/trig'], function(Trig) {
     'use strict';
 
     return {
-        ApplyGravity: function() {
-            return 0.0009;
+        ApplyGravity: function(angle) {
+            return Trig.getYComponent(angle, 0.0009);
         }
     };
 });

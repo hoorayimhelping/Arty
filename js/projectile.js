@@ -13,6 +13,7 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
                 y: 200,
                 length: 10,
                 thickness: 2,
+                color: '#F30',
                 velocity: {
                     x: 0,
                     y: 0
@@ -26,15 +27,20 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
                     y: 0
                 },
                 terminal_velocity: {
-                    down: 12.07,
-                    up: 14
+                    down: 11,
+                    up: 11,
+                    forward: 11
                 }
             };
         },
 
         update: function(dt) {
-            this.projectile.acceleration.x += this.projectile.starting_acceleration.x * dt;
-            this.projectile.acceleration.y += this.projectile.starting_acceleration.y - Physics.ApplyGravity() * dt;
+            // Trig.getXComponent(this.cannon.angle, this.cannon.muzzle_velocity);
+            // this.projectile.projectile.starting_acceleration.y = Math.cos(Trig.toRadians(90 - this.cannon.angle)) * this.cannon.muzzle_velocity;
+
+            this.projectile.acceleration.x += Trig.getXComponent(this.projectile.angle, this.projectile.starting_acceleration.x) * dt;
+            this.projectile.acceleration.y += Trig.getYComponent(this.projectile.angle, this.projectile.starting_acceleration.y) * dt;
+            this.projectile.acceleration.y -= Physics.ApplyGravity(this.projectile.angle) * dt;
 
             this.projectile.velocity.x += this.projectile.acceleration.x;
             this.projectile.velocity.y += this.projectile.acceleration.y;
@@ -45,8 +51,8 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
             this.projectile.angle = Trig.toDegrees(Math.atan(this.projectile.velocity.y / this.projectile.velocity.x));
 
             if (this.projectile.velocity.x > 0) {
-                if (Math.abs(this.projectile.velocity.x) >= this.projectile.terminal_velocity.down) {
-                    this.projectile.velocity.x = this.projectile.terminal_velocity.down;
+                if (Math.abs(this.projectile.velocity.x) >= this.projectile.terminal_velocity.forward ) {
+                    this.projectile.velocity.x = this.projectile.terminal_velocity.forward;
                     this.projectile.acceleration.x = 0;
                     this.projectile.starting_acceleration.x = 0;
                 }
@@ -67,28 +73,6 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
                     this.projectile.starting_acceleration.y = 0;
                 }
             }
-
-// console.log('dt', dt, 'y accel', this.projectile.acceleration.y, 'y vel', this.projectile.velocity.y);
-
-            // this.projectile.acceleration.x = Math.min(this.projectile.max_acceleration, this.projectile.acceleration.x);
-
-            // var direction = this.projectile.velocity.y / this.projectile.velocity.y;
-            // if (Math.abs(this.projectile.acceleration.y) > Math.abs(this.projectile.max_acceleration)) {
-            //     this.projectile.acceleration.y = this.projectile.max_acceleration * direction;
-            // }
-
-            // this.projectile.velocity.x += this.projectile.acceleration.x * dt;
-            // this.projectile.velocity.y += this.projectile.acceleration.y * dt;
-
-            // this.projectile.velocity.x = Math.min(this.projectile.terminal_velocity, this.projectile.velocity.x);
-
-            // direction = this.projectile.velocity.y / this.projectile.velocity.y;
-            // if (Math.abs(this.projectile.velocity.y) >= Math.abs(this.projectile.terminal_velocity)) {
-            //     this.projectile.velocity.y = this.projectile.terminal_velocity * direction;
-            // }
-
-            // this.projectile.x += Trig.getXComponent(this.projectile.angle, this.projectile.velocity.x);
-            // this.projectile.y -= Trig.getYComponent(this.projectile.angle, this.projectile.velocity.y);
         },
 
         render: function(projectile) {
@@ -97,7 +81,7 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
                 projectile.y,
                 projectile.x + Trig.getXComponent(projectile.angle, projectile.length), 
                 projectile.y -Trig.getYComponent(projectile.angle, projectile.length),
-                { lineWidth: projectile.thickness, strokeStyle: "#F30" }
+                { lineWidth: projectile.thickness, strokeStyle: projectile.color }
             );
         },
         getArgs: function() {

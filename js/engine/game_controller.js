@@ -24,12 +24,12 @@ define(['engine/timed_movement', 'engine/updateables', 'engine/renderables'], fu
             this.input.init();
             this.performance_monitor.init();
 
-            [this.cannon].forEach(function(cannon) {
-                this.renderables.add({
-                    render: cannon.render.bind(this.renderer),
-                    args: cannon.getArgs()
-                });
-            }, this);
+            // [this.cannon].forEach(function(cannon) {
+            //     this.renderables.add({
+            //         render: cannon.render.bind(this.renderer),
+            //         args: cannon.getArgs()
+            //     });
+            // }, this);
 
             document.addEventListener('keyup', this.handleKeyup.bind(this));
 
