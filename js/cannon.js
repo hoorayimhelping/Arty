@@ -71,11 +71,6 @@ define(['engine/math/trig'], function(Trig) {
             this.projectile.projectile.starting_acceleration.x = this.cannon.muzzle_velocity;
             this.projectile.projectile.starting_acceleration.y = this.cannon.muzzle_velocity;
 
-            // this.projectile.projectile.velocity.x = this.projectile.projectile.starting_acceleration.x * 10;
-            // this.projectile.projectile.velocity.y = this.projectile.projectile.starting_acceleration.y * 10;
-            // this.projectile.projectile.color = 'rgb(' + (100 + this.cannon.angle) + ', ' + (80 + this.cannon.angle) + ', ' + this.cannon.angle + ')';
-
-console.log(this.cannon.angle);
             return {
                 update: this.projectile.update,
                 render: this.projectile.render,
