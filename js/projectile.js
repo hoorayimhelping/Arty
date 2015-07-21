@@ -26,11 +26,7 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
                     x: 0,
                     y: 0
                 },
-                terminal_velocity: {
-                    down: 11,
-                    up: 11,
-                    forward: 11
-                }
+                terminal_velocity: 11
             };
         },
 
@@ -48,8 +44,8 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
             this.projectile.angle = Trig.toDegrees(Math.atan(this.projectile.velocity.y / this.projectile.velocity.x));
 
             if (this.projectile.velocity.x > 0) {
-                if (Math.abs(this.projectile.velocity.x) >= this.projectile.terminal_velocity.forward ) {
-                    this.projectile.velocity.x = this.projectile.terminal_velocity.forward;
+                if (Math.abs(this.projectile.velocity.x) >= this.projectile.terminal_velocity ) {
+                    this.projectile.velocity.x = this.projectile.terminal_velocity;
                     this.projectile.acceleration.x = 0;
                     this.projectile.starting_acceleration.x = 0;
                 }
@@ -57,15 +53,15 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
 
             // falling
             if (this.projectile.velocity.y < 0) {
-                if (Math.abs(this.projectile.velocity.y) >= this.projectile.terminal_velocity.down) {
-                    this.projectile.velocity.y = -this.projectile.terminal_velocity.down;
+                if (Math.abs(this.projectile.velocity.y) >= this.projectile.terminal_velocity) {
+                    this.projectile.velocity.y = -this.projectile.terminal_velocity;
                     this.projectile.acceleration.y = 0;
                     this.projectile.starting_acceleration.y = 0;
                 }
             // rising
             } else {
-                if (Math.abs(this.projectile.velocity.y) >= this.projectile.terminal_velocity.up) {
-                    this.projectile.velocity.y = this.projectile.terminal_velocity.up;
+                if (Math.abs(this.projectile.velocity.y) >= this.projectile.terminal_velocity) {
+                    this.projectile.velocity.y = this.projectile.terminal_velocity;
                     this.projectile.acceleration.y = 0;
                     this.projectile.starting_acceleration.y = 0;
                 }
