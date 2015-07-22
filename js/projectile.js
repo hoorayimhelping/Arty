@@ -36,11 +36,11 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
                 this.projectile.acceleration.y -= Physics.ApplyGravity();
             }
 
-            this.projectile.velocity.x += this.projectile.acceleration.x;
-            this.projectile.velocity.y += this.projectile.acceleration.y;
+            this.projectile.velocity.x += dt * this.projectile.acceleration.x;
+            this.projectile.velocity.y += dt * this.projectile.acceleration.y;
 
-            this.projectile.x += this.projectile.velocity.x;
-            this.projectile.y -= this.projectile.velocity.y;
+            this.projectile.x += dt * this.projectile.velocity.x;
+            this.projectile.y -= dt * this.projectile.velocity.y;
 
             this.projectile.angle = Trig.toDegrees(Math.atan(this.projectile.velocity.y / this.projectile.velocity.x));
         },
