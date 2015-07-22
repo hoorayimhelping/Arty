@@ -65,8 +65,8 @@ define(['engine/math/trig'], function(Trig) {
         fire: function() {
             this.projectile.init();
 
-            this.projectile.projectile.x = this.cannon.x;
-            this.projectile.projectile.y = this.cannon.y;
+            this.projectile.projectile.position.x = this.cannon.x;
+            this.projectile.projectile.position.y = this.cannon.y;
             this.projectile.projectile.angle = this.cannon.angle;
             this.projectile.projectile.acceleration.x = Trig.getXComponent(this.cannon.angle, this.cannon.muzzle_velocity);
             this.projectile.projectile.acceleration.y = Trig.getYComponent(this.cannon.angle, this.cannon.muzzle_velocity);
