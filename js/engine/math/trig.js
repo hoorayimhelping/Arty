@@ -3,10 +3,12 @@ define([], function() {
 
     return {
         getXComponent: function(angle, length) {
+            length = length || 1;
             return Math.cos(this.toRadians(angle)) * length;
         },
 
         getYComponent: function(angle, length) {
+            length = length || 1;
             return Math.sin(this.toRadians(angle)) * length;
         },
 
