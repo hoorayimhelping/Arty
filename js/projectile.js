@@ -22,10 +22,6 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
                     x: 0,
                     y: 0
                 },
-                starting_acceleration: {
-                    x: 0,
-                    y: 0
-                },
                 terminal_velocity: 11,
                 barrel_tip: {
                     x: 0,
@@ -35,9 +31,10 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
         },
 
         update: function(dt) {
-            this.projectile.acceleration.x += Trig.getXComponent(this.projectile.angle, this.projectile.starting_acceleration.x) * dt;
-            this.projectile.acceleration.y += Trig.getYComponent(this.projectile.angle, this.projectile.starting_acceleration.y) * dt;
-            this.projectile.acceleration.y -= Physics.ApplyGravity(this.projectile.angle) * dt;
+            if (this.projectile.x >= this.projectile.barrel_tip.x &&
+                this.projectile.y <= this.projectile.barrel_tip.y) {
+                this.projectile.acceleration.y -= Physics.ApplyGravity();
+            }
 
             this.projectile.velocity.x += this.projectile.acceleration.x;
             this.projectile.velocity.y += this.projectile.acceleration.y;
@@ -46,26 +43,6 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
             this.projectile.y -= this.projectile.velocity.y;
 
             this.projectile.angle = Trig.toDegrees(Math.atan(this.projectile.velocity.y / this.projectile.velocity.x));
-
-            if (this.projectile.velocity.x > 0) {
-                if (Math.abs(this.projectile.velocity.x) >= this.projectile.terminal_velocity ) {
-                    this.projectile.velocity.x = this.projectile.terminal_velocity;
-                    this.projectile.acceleration.x = 0;
-                    this.projectile.starting_acceleration.x = 0;
-                }
-            }
-
-            if (Math.abs(this.projectile.velocity.y) >= this.projectile.terminal_velocity) {
-                // falling
-                if (this.projectile.velocity.y < 0) {
-                    this.projectile.velocity.y = -this.projectile.terminal_velocity;
-                } else {
-                    this.projectile.velocity.y = this.projectile.terminal_velocity;
-                }
-
-                this.projectile.acceleration.y *= 0;
-                this.projectile.starting_acceleration.y *= 0.3;
-            }
         },
 
         render: function(projectile) {
