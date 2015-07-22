@@ -7,7 +7,7 @@ define([], function() {
 
     Renderables.prototype = {
         add: function(renderable) {
-            this.renderables.push(renderable);
+            this.renderables.unshift(renderable);
         },
 
         render: function() {
