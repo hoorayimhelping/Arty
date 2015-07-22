@@ -39,8 +39,8 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
             this.projectile.velocity.x += dt * this.projectile.acceleration.x;
             this.projectile.velocity.y += dt * this.projectile.acceleration.y;
 
-            this.projectile.x += dt * this.projectile.velocity.x;
-            this.projectile.y -= dt * this.projectile.velocity.y;
+            this.projectile.x += dt * (this.projectile.velocity.x + (dt * this.projectile.acceleration.x / 2));
+            this.projectile.y -= dt * (this.projectile.velocity.y + (dt * this.projectile.acceleration.y / 2));
 
             this.projectile.angle = Trig.toDegrees(Math.atan(this.projectile.velocity.y / this.projectile.velocity.x));
         },

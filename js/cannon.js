@@ -17,7 +17,7 @@ define(['engine/math/trig'], function(Trig) {
 
         this.cannon = {
             angle: 45,
-            muzzle_velocity: 0.0009,
+            muzzle_velocity: 0.000905,
             barrel_length: 25,
             thickness: 3,
             x: 200,
