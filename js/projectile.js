@@ -26,7 +26,11 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
                     x: 0,
                     y: 0
                 },
-                terminal_velocity: 11
+                terminal_velocity: 11,
+                barrel_tip: {
+                    x: 0,
+                    y: 0
+                }
             };
         },
 
@@ -51,20 +55,16 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
                 }
             }
 
-            // falling
-            if (this.projectile.velocity.y < 0) {
-                if (Math.abs(this.projectile.velocity.y) >= this.projectile.terminal_velocity) {
+            if (Math.abs(this.projectile.velocity.y) >= this.projectile.terminal_velocity) {
+                // falling
+                if (this.projectile.velocity.y < 0) {
                     this.projectile.velocity.y = -this.projectile.terminal_velocity;
-                    this.projectile.acceleration.y = 0;
-                    this.projectile.starting_acceleration.y = 0;
-                }
-            // rising
-            } else {
-                if (Math.abs(this.projectile.velocity.y) >= this.projectile.terminal_velocity) {
+                } else {
                     this.projectile.velocity.y = this.projectile.terminal_velocity;
-                    this.projectile.acceleration.y = 0;
-                    this.projectile.starting_acceleration.y = 0;
                 }
+
+                this.projectile.acceleration.y *= 0;
+                this.projectile.starting_acceleration.y *= 0.3;
             }
         },
 
