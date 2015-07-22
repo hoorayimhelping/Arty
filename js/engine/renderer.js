@@ -11,7 +11,7 @@ define([], function() {
         },
 
         render: function() {
-            // this.context.fillRect(0, 0, this.context.canvas.clientWidth, this.context.canvas.clientHeight);
+            this.context.fillRect(0, 0, this.context.canvas.clientWidth, this.context.canvas.clientHeight);
         },
 
         options: function(options) {
