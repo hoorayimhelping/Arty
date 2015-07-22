@@ -2,11 +2,11 @@ define(['engine/math/trig'], function(Trig) {
     'use strict';
 
     var getCannonTipX = function(cannon) {
-        return cannon.x + Trig.getXComponent(cannon.angle, cannon.barrel_length);
+        return cannon.position.x + Trig.getXComponent(cannon.angle, cannon.barrel_length);
     };
 
     var getCannonTipY = function(cannon) {
-        return cannon.y -Trig.getYComponent(cannon.angle, cannon.barrel_length);
+        return cannon.position.y -Trig.getYComponent(cannon.angle, cannon.barrel_length);
     };
 
     var Cannon = function(projectile) {
@@ -20,8 +20,10 @@ define(['engine/math/trig'], function(Trig) {
             muzzle_velocity: 0.000905,
             barrel_length: 25,
             thickness: 3,
-            x: 200,
-            y: 200,
+            position: {
+                x: 0,
+                y: 0
+            },
             movement_speed: 0.07,
         };
     };
@@ -65,8 +67,8 @@ define(['engine/math/trig'], function(Trig) {
         fire: function() {
             this.projectile.init();
 
-            this.projectile.projectile.position.x = this.cannon.x;
-            this.projectile.projectile.position.y = this.cannon.y;
+            this.projectile.projectile.position.x = this.cannon.position.x;
+            this.projectile.projectile.position.y = this.cannon.position.y;
             this.projectile.projectile.angle = this.cannon.angle;
             this.projectile.projectile.acceleration.x = Trig.getXComponent(this.cannon.angle, this.cannon.muzzle_velocity);
             this.projectile.projectile.acceleration.y = Trig.getYComponent(this.cannon.angle, this.cannon.muzzle_velocity);
@@ -84,8 +86,8 @@ define(['engine/math/trig'], function(Trig) {
         render: function(cannon) {
             // draw barrel
             this.line(
-                cannon.x, 
-                cannon.y,
+                cannon.position.x, 
+                cannon.position.y,
                 getCannonTipX(cannon),
                 getCannonTipY(cannon),
                 { lineWidth: cannon.thickness }

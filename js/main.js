@@ -33,8 +33,8 @@ requirejs([
     controller.init();
 
     var initCannons = function() {
-        cannon.cannon.x = 0;
-        cannon.cannon.y = canvasHeight();
+        cannon.cannon.position.x = 0;
+        cannon.cannon.position.y = canvasHeight();
     };
 
     var scaleCanvas = function() {
