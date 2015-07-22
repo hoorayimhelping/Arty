@@ -14,6 +14,10 @@ define([], function() {
             this.updateables.map(function(updateable) {
                 updateable.update(dt);
             });
+        },
+
+        filter: function(fn) {
+            this.updateables = this.updateables.filter(fn);
         }
     };
 
