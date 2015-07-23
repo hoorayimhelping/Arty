@@ -9,7 +9,7 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
 
         this.last_frame_time = +new Date();
 
-        this.updateables = new Updateables();
+        this.projectiles = new Updateables();
         this.renderables = new Renderables();
 
         this.input = input;
@@ -39,7 +39,7 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
             var now = +new Date();
             var dt = now - this.last_frame_time;
 
-            this.updateables.update(dt);
+            this.projectiles.update(dt);
             this.cannon.update(dt, this.input);
 
             this.render(dt);
@@ -62,7 +62,7 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
         handleKeyup: function(event) {
             // spacebar was pressed
             if (event.which == 32) {
-                this.updateables.filter(function(updateable) {
+                this.projectiles.filter(function(updateable) {
                     if (typeof updateable === 'function' &&
                         updateable.hasOwnProperty('projectile') &&
                         updateable.projectile.id === this.cannon.active_projectile.id) {
@@ -72,7 +72,7 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
 
                 var projectile = this.cannon.fire();
 
-                this.updateables.add({
+                this.projectiles.add({
                     update: projectile.update.bind(projectile.context)
                 });
 
