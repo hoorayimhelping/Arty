@@ -25,7 +25,6 @@ define(['engine/math/trig', 'engine/math/physics', 'engine/constants/world'], fu
                     x: 0,
                     y: 0
                 },
-                terminal_velocity: 11,
                 barrel_tip: {
                     x: 0,
                     y: 0
