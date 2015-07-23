@@ -12,8 +12,8 @@ define([], function() {
 
         update: function(dt) {
             this.updateables.map(function(updateable) {
-                updateable.update(dt);
-            });
+                updateable.update(dt, this);
+            }, this);
         },
 
         filter: function(fn) {

@@ -75,6 +75,8 @@ define(['engine/math/trig'], function(Trig) {
             this.projectile.projectile.barrel_tip.x = getCannonTipX(this.cannon);
             this.projectile.projectile.barrel_tip.y = getCannonTipY(this.cannon);
 
+            this.active_projectile = this.projectile.id;
+
             return {
                 update: this.projectile.update,
                 render: this.projectile.render,

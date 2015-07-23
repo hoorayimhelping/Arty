@@ -8,6 +8,7 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
     Projectile.prototype = {
         init: function() {
             this.projectile = {
+                id: Date.now(),
                 angle: 0,
                 length: 10,
                 thickness: 2,
@@ -32,7 +33,7 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
             };
         },
 
-        update: function(dt) {
+        update: function(dt, updateables) {
             if (this.projectile.position.x >= this.projectile.barrel_tip.x &&
                 this.projectile.position.y <= this.projectile.barrel_tip.y) {
                 this.projectile.acceleration.y -= Physics.ApplyGravity();
@@ -45,6 +46,10 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
             this.projectile.position.y -= dt * (this.projectile.velocity.y + (dt * this.projectile.acceleration.y / 2));
 
             this.projectile.angle = Trig.toDegrees(Math.atan(this.projectile.velocity.y / this.projectile.velocity.x));
+
+            if (this.projectile.position.y >= 600) {
+                updateables.filter(this.filter);
+            }
         },
 
         render: function(projectile) {
@@ -56,8 +61,18 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
                 { lineWidth: projectile.thickness, strokeStyle: projectile.color }
             );
         },
+
         getArgs: function() {
             return this.projectile;
+        },
+
+        filter: function(prjectile) {
+            if (typeof prjectile === 'function' &&
+                prjectile.hasOwnProperty('projectile') &&
+                prjectile.projectile.id === this.projectile.id) {
+
+                return false;
+            }
         }
     };
 
