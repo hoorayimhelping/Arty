@@ -12,11 +12,12 @@ define(['engine/math/trig'], function(Trig) {
     var Cannon = function(projectile) {
         this.projectile = projectile;
 
-        this.max_angle = 70;
-        this.min_angle = 20;
+        this.active_projectile_id = 0;
 
         this.cannon = {
             angle: 45,
+            max_angle: 70,
+            min_angle: 20,
             muzzle_velocity: 0.000905,
             barrel_length: 25,
             thickness: 3,
@@ -45,12 +46,12 @@ define(['engine/math/trig'], function(Trig) {
         moveBy: function(amount) {
             this.cannon.angle += amount;
 
-            if (this.cannon.angle > this.max_angle) {
-                this.cannon.angle = this.max_angle;
+            if (this.cannon.angle > this.cannon.max_angle) {
+                this.cannon.angle = this.cannon.max_angle;
             }
 
-            if (this.cannon.angle < this.min_angle) {
-                this.cannon.angle = this.min_angle;
+            if (this.cannon.angle < this.cannon.min_angle) {
+                this.cannon.angle = this.cannon.min_angle;
             }
         },
 
@@ -75,7 +76,7 @@ define(['engine/math/trig'], function(Trig) {
             this.projectile.projectile.barrel_tip.x = getCannonTipX(this.cannon);
             this.projectile.projectile.barrel_tip.y = getCannonTipY(this.cannon);
 
-            this.active_projectile = this.projectile.id;
+            this.active_projectile_id = this.projectile.id;
 
             return {
                 update: this.projectile.update,
