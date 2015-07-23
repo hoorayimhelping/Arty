@@ -1,4 +1,4 @@
-define(['engine/timed_movement', 'engine/updateables', 'engine/renderables'], function(TimedMovement, Updateables, Renderables) {
+define(['engine/updateables', 'engine/renderables'], function(Updateables, Renderables) {
     'use strict';
 
     var GameController = function(renderer, input, performance_monitor, cannon) {
@@ -11,7 +11,6 @@ define(['engine/timed_movement', 'engine/updateables', 'engine/renderables'], fu
 
         this.updateables = new Updateables();
         this.renderables = new Renderables();
-        this.timed_movements = new TimedMovement();
 
         this.input = input;
 
