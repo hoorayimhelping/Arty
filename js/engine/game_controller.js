@@ -62,10 +62,9 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
         handleKeyup: function(event) {
             // spacebar was pressed
             if (event.which == 32) {
-                this.projectiles.filter(function(updateable) {
-                    if (typeof updateable === 'function' &&
-                        updateable.hasOwnProperty('projectile') &&
-                        updateable.projectile.id === this.cannon.active_projectile.id) {
+                this.projectiles.filter(function(item) {
+                    if (item.hasOwnProperty('projectile') &&
+                        item.projectile.id === this.cannon.active_projectile.id) {
                         return false;
                     }
                 });
