@@ -1,4 +1,4 @@
-define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
+define(['engine/math/trig', 'engine/math/physics', 'engine/constants/world'], function(Trig, Physics, World) {
     'use strict';
 
     var Projectile = function() {
@@ -47,7 +47,7 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
 
             this.projectile.angle = Trig.toDegrees(Math.atan(this.projectile.velocity.y / this.projectile.velocity.x));
 
-            if (this.projectile.position.y >= 600) {
+            if (this.projectile.position.y >= World.ground()) {
                 updateables.filter(this.filter);
             }
         },

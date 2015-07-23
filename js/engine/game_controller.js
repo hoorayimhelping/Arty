@@ -61,6 +61,7 @@ define(['engine/timed_movement', 'engine/updateables', 'engine/renderables'], fu
         },
 
         handleKeyup: function(event) {
+            // spacebar was pressed
             if (event.which == 32) {
                 this.updateables.filter(function(updateable) {
                     if (typeof updateable === 'function' &&
