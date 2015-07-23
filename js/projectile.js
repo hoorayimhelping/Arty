@@ -65,10 +65,10 @@ define(['engine/math/trig', 'engine/math/physics', 'engine/constants/world'], fu
             return this.projectile;
         },
 
-        filter: function(prjectile) {
-            if (typeof prjectile === 'function' &&
-                prjectile.hasOwnProperty('projectile') &&
-                prjectile.projectile.id === this.projectile.id) {
+        filter: function(projectile) {
+            if (typeof projectile === 'function' &&
+                projectile.hasOwnProperty('projectile') &&
+                projectile.projectile.id === this.projectile.id) {
 
                 return false;
             }
