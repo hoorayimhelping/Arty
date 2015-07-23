@@ -7,7 +7,7 @@ define(['engine/timed_movement', 'engine/updateables', 'engine/renderables'], fu
 
         this.total_time_running = 0;
 
-        this.last_fame_time = +new Date();
+        this.last_frame_time = +new Date();
 
         this.updateables = new Updateables();
         this.renderables = new Renderables();
@@ -38,7 +38,7 @@ define(['engine/timed_movement', 'engine/updateables', 'engine/renderables'], fu
 
         update: function() {
             var now = +new Date();
-            var dt = now - this.last_fame_time;
+            var dt = now - this.last_frame_time;
 
             this.updateables.update(dt);
             this.cannon.update(dt, this.input);
@@ -49,7 +49,7 @@ define(['engine/timed_movement', 'engine/updateables', 'engine/renderables'], fu
             this.total_time_running += dt;
 
             // don't put anything below this
-            this.last_fame_time = now;
+            this.last_frame_time = now;
             requestAnimationFrame(this.update.bind(this));
         },
 
