@@ -7,8 +7,9 @@ define(['engine/math/trig', 'engine/math/physics', 'engine/constants/world'], fu
 
     Projectile.prototype = {
         init: function() {
+            this.id = Date.now();
+
             this.projectile = {
-                id: Date.now(),
                 angle: 0,
                 length: 10,
                 thickness: 2,

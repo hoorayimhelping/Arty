@@ -63,15 +63,17 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
             // spacebar was pressed
             if (event.which == 32) {
                 this.projectiles.filter(function(item) {
-                    if (item.hasOwnProperty('projectile') &&
-                        item.projectile.id === this.cannon.active_projectile.id) {
+                    if (item.hasOwnProperty('id') &&
+                        item.id === this.cannon.active_projectile_id) {
                         return false;
                     }
-                });
+                    return true;
+                }.bind(this));
 
                 var projectile = this.cannon.fire();
 
                 this.projectiles.add({
+                    id: projectile.context.id,
                     update: projectile.update.bind(projectile.context)
                 });
 
