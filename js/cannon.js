@@ -89,7 +89,7 @@ define(['engine/math/trig'], function(Trig) {
         render: function(cannon) {
             // draw barrel
             this.line(
-                cannon.position.x, 
+                cannon.position.x,
                 cannon.position.y,
                 getCannonTipX(cannon),
                 getCannonTipY(cannon),

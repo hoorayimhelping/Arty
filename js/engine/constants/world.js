@@ -2,7 +2,7 @@ define([], function() {
     'use strict';
 
     return {
-        ground: function() {
+        Ground: function() {
             return window.canvasHeight();
         }
     };

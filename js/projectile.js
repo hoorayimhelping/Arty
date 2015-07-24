@@ -1,4 +1,4 @@
-define(['engine/math/trig', 'engine/math/physics', 'engine/constants/world'], function(Trig, Physics, World) {
+define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
     'use strict';
 
     var Projectile = function() {
@@ -46,10 +46,6 @@ define(['engine/math/trig', 'engine/math/physics', 'engine/constants/world'], fu
             this.projectile.position.y -= dt * (this.projectile.velocity.y + (dt * this.projectile.acceleration.y / 2));
 
             this.projectile.angle = Trig.toDegrees(Math.atan(this.projectile.velocity.y / this.projectile.velocity.x));
-
-            if (this.projectile.position.y >= World.ground()) {
-                updateables.filter(this.filter);
-            }
         },
 
         render: function(projectile) {
@@ -64,15 +60,6 @@ define(['engine/math/trig', 'engine/math/physics', 'engine/constants/world'], fu
 
         getArgs: function() {
             return this.projectile;
-        },
-
-        filter: function(projectile) {
-            if (typeof projectile === 'function' &&
-                projectile.hasOwnProperty('projectile') &&
-                projectile.projectile.id === this.projectile.id) {
-
-                return false;
-            }
         }
     };
 

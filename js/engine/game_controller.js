@@ -1,4 +1,5 @@
-define(['engine/updateables', 'engine/renderables'], function(Updateables, Renderables) {
+define(['engine/updateables', 'engine/renderables', 'engine/constants/world', 'engine/effects/explosion', 'engine/timed_movement'],
+       function(Updateables, Renderables, GameWorld, Explosion, TimedMovement) {
     'use strict';
 
     var GameController = function(renderer, input, performance_monitor, cannon) {
@@ -11,6 +12,7 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
 
         this.projectiles = new Updateables();
         this.renderables = new Renderables();
+        this.timed_movements = new TimedMovement(this.explosionsFilter.bind(this));
 
         this.input = input;
 
@@ -39,8 +41,11 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
             var now = +new Date();
             var dt = now - this.last_frame_time;
 
-            this.projectiles.update(dt);
             this.cannon.update(dt, this.input);
+            this.projectiles.update(dt);
+            this.timed_movements.update(dt);
+
+            this.detectCollisions();
 
             this.render(dt);
             this.performance_monitor.update(dt);
@@ -74,6 +79,7 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
 
                 this.projectiles.add({
                     id: projectile.context.id,
+                    projectile: projectile.context.getArgs(),
                     update: projectile.update.bind(projectile.context)
                 });
 
@@ -81,8 +87,57 @@ define(['engine/updateables', 'engine/renderables'], function(Updateables, Rende
                     render: projectile.render.bind(this.renderer),
                     args: projectile.getArgs()
                 });
-            }  
+            }
         },
+
+        detectCollisions: function() {
+            this.projectiles.filter(function(item) {
+                if (item.hasOwnProperty('projectile') &&
+                    item.projectile.position.y >= GameWorld.Ground()) {
+
+                    this.createExplosion({ x: item.projectile.position.x, y: GameWorld.Ground() });
+
+                    return false;
+                }
+
+                return true;
+            }.bind(this));
+        },
+
+        createExplosion: function(coords) {
+            var explosion = Explosion.CreateAtCoords(coords);
+
+            this.timed_movements.create({
+                id: explosion.id,
+                total_time: 0,
+                duration: explosion.animation_duration,
+                update: explosion.update.bind(explosion)
+            });
+
+            this.renderables.add({
+                id: explosion.id,
+                render: explosion.render.bind(this.renderer),
+                args: explosion.getArgs()
+            });
+        },
+
+        explosionsFilter: function(explosion) {
+            if (explosion.total_time >= explosion.duration) {
+                this.renderables.filter(function(renderable) {
+
+                    if (renderable.hasOwnProperty('id') &&
+                        renderable.id === explosion.id) {
+                        return false;
+                    }
+
+                    return true;
+                }.bind(this));
+                
+                return false;
+            }
+
+            return true;
+        }
     };
 
     return GameController;
