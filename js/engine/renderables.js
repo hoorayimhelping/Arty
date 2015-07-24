@@ -7,13 +7,17 @@ define([], function() {
 
     Renderables.prototype = {
         add: function(renderable) {
-            this.renderables.push(renderable);
+            this.renderables.unshift(renderable);
         },
 
         render: function() {
             this.renderables.map(function(renderable) {
                 renderable.render(renderable.args);
             });
+        },
+
+        filter: function(fn) {
+            this.renderables = this.renderables.filter(fn);
         }
     };
 

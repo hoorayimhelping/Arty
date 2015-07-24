@@ -7,9 +7,6 @@ define([], function() {
      */
     var Performance = function($element) {
         this.$element = $element;
-
-        var $fpsElement = document.createElement('p');
-        this.$element.appendChild($fpsElement);
     };
 
     Performance.prototype.init = function() {
@@ -41,7 +38,7 @@ define([], function() {
           adjustedFPS = 'Calculating';
         }
 
-        this.$element.children[0].innerHTML = 'FPS: ' + adjustedFPS;
+        this.$element.innerHTML = 'FPS: ' + adjustedFPS;
 
         this.elapsedTime = 0;
         this.fps = 0;
@@ -50,4 +47,4 @@ define([], function() {
     };
 
     return Performance;
-})
+});
