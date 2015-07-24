@@ -67,13 +67,13 @@ define(['engine/updateables', 'engine/renderables', 'engine/constants/world', 'e
         handleKeyup: function(event) {
             // spacebar was pressed
             if (event.which == 32) {
-                this.projectiles.filter(function(item) {
+                for (var i = 0; i < this.projectiles.updateables.length; i++) {
+                    var item = this.projectiles.updateables[i];
                     if (item.hasOwnProperty('id') &&
                         item.id === this.cannon.active_projectile_id) {
                         return false;
                     }
-                    return true;
-                }.bind(this));
+                }
 
                 var projectile = this.cannon.fire();
 
