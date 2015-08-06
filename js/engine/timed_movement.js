@@ -16,6 +16,7 @@ define([], function() {
             .filter(this.filter)
             .map(function(updateable) {
                 var time_left = updateable.duration - updateable.total_time;
+                // check out explosion::update
                 updateable.update(dt, updateable.angle, time_left);
                 updateable.total_time += dt;
             });
