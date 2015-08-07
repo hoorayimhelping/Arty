@@ -11,7 +11,9 @@ define([], function() {
             this.active_keys = {
                 'space': false,
                 'up': false,
-                'down': false
+                'down': false,
+                'right': false,
+                'left': false
             };
             this.bindEventHandlers();
         },
@@ -37,6 +39,14 @@ define([], function() {
             if (event.which == 40) {
                 this.active_keys.down = true;
             }
+
+            if (event.which == 39) {
+                this.active_keys.right = true;
+            }
+
+            if (event.which == 37) {
+                this.active_keys.left = true;
+            }
         },
 
         handleKeyup: function(event) {
@@ -50,6 +60,14 @@ define([], function() {
 
             if (event.which == 40) {
                 this.active_keys.down = false;
+            }
+
+            if (event.which == 39) {
+                this.active_keys.right = false;
+            }
+
+            if (event.which == 37) {
+                this.active_keys.left = false;
             }
         }
     };

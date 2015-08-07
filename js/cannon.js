@@ -18,7 +18,12 @@ define(['engine/math/trig'], function(Trig) {
             angle: 45,
             max_angle: 70,
             min_angle: 20,
-            muzzle_velocity: 0.000905,
+            muzzle_velocity: {
+                current: 0.000905,
+                max: 0.0015,
+                min: 0.000785,
+                step: 0.0000005
+            },
             barrel_length: 25,
             thickness: 3,
             position: {
@@ -43,8 +48,8 @@ define(['engine/math/trig'], function(Trig) {
             }
         },
 
-        moveBy: function(amount) {
-            this.cannon.angle += amount;
+        moveBy: function(dt) {
+            this.cannon.angle += this.cannon.movement_speed * dt;
 
             if (this.cannon.angle > this.cannon.max_angle) {
                 this.cannon.angle = this.cannon.max_angle;
@@ -55,13 +60,33 @@ define(['engine/math/trig'], function(Trig) {
             }
         },
 
+        scaleMuzzleVelocity: function(dt) {
+            this.cannon.muzzle_velocity.current += this.cannon.muzzle_velocity.step * dt;
+
+            if (this.cannon.muzzle_velocity.current > this.cannon.muzzle_velocity.max) {
+                this.cannon.muzzle_velocity.current = this.cannon.muzzle_velocity.max;
+            }
+
+            if (this.cannon.muzzle_velocity.current < this.cannon.muzzle_velocity.min) {
+                this.cannon.muzzle_velocity.current = this.cannon.muzzle_velocity.min;
+            }
+        },
+
         update: function(dt, input) {
             if (input.isPressed('up')) {
-                this.moveBy(this.cannon.movement_speed * dt);
+                this.moveBy(dt);
             }
 
             if (input.isPressed('down')) {
-                this.moveBy(-this.cannon.movement_speed * dt);
+                this.moveBy(-dt);
+            }
+
+            if (input.isPressed('right')) {
+                this.scaleMuzzleVelocity(dt);
+            }
+
+            if (input.isPressed('left')) {
+                this.scaleMuzzleVelocity(-dt);
             }
         },
 
@@ -71,10 +96,12 @@ define(['engine/math/trig'], function(Trig) {
             this.projectile.projectile.position.x = this.cannon.position.x;
             this.projectile.projectile.position.y = this.cannon.position.y;
             this.projectile.projectile.angle = this.cannon.angle;
-            this.projectile.projectile.acceleration.x = Trig.getXComponent(this.cannon.angle, this.cannon.muzzle_velocity);
-            this.projectile.projectile.acceleration.y = Trig.getYComponent(this.cannon.angle, this.cannon.muzzle_velocity);
+            this.projectile.projectile.acceleration.x = Trig.getXComponent(this.cannon.angle, this.cannon.muzzle_velocity.current);
+            this.projectile.projectile.acceleration.y = Trig.getYComponent(this.cannon.angle, this.cannon.muzzle_velocity.current);
             this.projectile.projectile.barrel_tip.x = getCannonTipX(this.cannon);
             this.projectile.projectile.barrel_tip.y = getCannonTipY(this.cannon);
+
+console.log('muzzle velocity', this.cannon.muzzle_velocity.current);
 
             this.active_projectile_id = this.projectile.id;
 
