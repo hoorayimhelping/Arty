@@ -12,7 +12,7 @@ define([], function() {
 
         update: function(dt) {
             this.updateables.map(function(updateable) {
-                updateable.update(dt, this);
+                updateable.update(dt);
             }, this);
         },
 

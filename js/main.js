@@ -1,11 +1,12 @@
 requirejs([
-    'engine/game_controller',
+    'engine/constants/world',
+    'game/controller',
     'engine/renderer',
     'engine/input',
     'engine/performance_monitor',
     'cannon',
     'projectile'
-    ], function(GameController, Renderer, Input, PerformanceMonitor, Cannon, Projectile) {
+    ], function(GameWorld, GameController, Renderer, Input, PerformanceMonitor, Cannon, Projectile) {
     'use strict';
 
     window.canvasWidth = function() {
@@ -29,7 +30,7 @@ requirejs([
 
     var cannon = new Cannon(projectile);
 
-    var controller = new GameController(renderer, input, performance_monitor, cannon);
+    var controller = new GameController(GameWorld, renderer, input, performance_monitor, cannon);
     controller.init();
 
     var initCannons = function() {

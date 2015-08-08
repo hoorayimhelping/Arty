@@ -1,8 +1,9 @@
-define(['engine/updateables', 'engine/renderables', 'engine/constants/world', 'engine/effects/explosion', 'engine/timed_movement'],
-       function(Updateables, Renderables, GameWorld, Explosion, TimedMovement) {
+define(['game/updateables', 'game/renderables', 'engine/effects/explosion', 'game/timed_movement', 'game/text'],
+       function(Updateables, Renderables, Explosion, TimedMovement, Text) {
     'use strict';
 
-    var GameController = function(renderer, input, performance_monitor, cannon) {
+    var GameController = function(world, renderer, input, performance_monitor, cannon) {
+        this.world = world;
         this.renderer = renderer;
         this.performance_monitor = performance_monitor;
 
@@ -13,6 +14,9 @@ define(['engine/updateables', 'engine/renderables', 'engine/constants/world', 'e
         this.projectiles = new Updateables();
         this.renderables = new Renderables();
         this.timed_movements = new TimedMovement(this.explosionsFilter.bind(this));
+
+        this.power_text = new Text('Power: ', { x: 0, y: 20 });
+        this.angle_text = new Text('Angle: ', { x: 0, y: 40 });
 
         this.input = input;
 
@@ -25,12 +29,33 @@ define(['engine/updateables', 'engine/renderables', 'engine/constants/world', 'e
             this.input.init();
             this.performance_monitor.init();
 
-            [this.cannon].forEach(function(cannon) {
+            [this.cannon].forEach(function(cannon, i) {
                 this.renderables.add({
+                    id: 'cannon_' + i,
                     render: cannon.render.bind(this.renderer),
                     args: cannon.getArgs()
                 });
             }, this);
+
+            this.power_text.update = function(dt, power) {
+                this.text.text = 'Power: ' + power;
+            }.bind(this.power_text);
+
+            this.angle_text.update = function(dt, angle) {
+                this.text.text = 'Angle: ' + angle;
+            }.bind(this.angle_text);
+
+            this.renderables.add({
+                id: 'power_text',
+                render: this.power_text.renderText.bind(this.renderer),
+                args: this.power_text.getArgs()
+            });
+
+            this.renderables.add({
+                id: 'angle_text',
+                render: this.angle_text.renderText.bind(this.renderer),
+                args: this.angle_text.getArgs()
+            });
 
             document.addEventListener('keyup', this.handleKeyup.bind(this));
 
@@ -42,6 +67,8 @@ define(['engine/updateables', 'engine/renderables', 'engine/constants/world', 'e
             var dt = now - this.last_frame_time;
 
             this.cannon.update(dt, this.input);
+            this.power_text.update(dt, (this.cannon.getArgs().muzzle_velocity.current * 1000).toFixed(3));
+            this.angle_text.update(dt, this.cannon.getArgs().angle.toFixed(2) + "°");
             this.projectiles.update(dt);
             this.timed_movements.update(dt);
 
@@ -67,13 +94,13 @@ define(['engine/updateables', 'engine/renderables', 'engine/constants/world', 'e
         handleKeyup: function(event) {
             // spacebar was pressed
             if (event.which == 32) {
-                this.projectiles.filter(function(item) {
-                    if (item.hasOwnProperty('id') &&
-                        item.id === this.cannon.active_projectile_id) {
+                for (var i = 0; i < this.projectiles.updateables.length; i++) {
+                    var traveling_projectile = this.projectiles.updateables[i];
+                    if (traveling_projectile.hasOwnProperty('id') &&
+                        traveling_projectile.id === this.cannon.active_projectile_id) {
                         return false;
                     }
-                    return true;
-                }.bind(this));
+                }
 
                 var projectile = this.cannon.fire();
 
@@ -93,9 +120,9 @@ define(['engine/updateables', 'engine/renderables', 'engine/constants/world', 'e
         detectCollisions: function() {
             this.projectiles.filter(function(item) {
                 if (item.hasOwnProperty('projectile') &&
-                    item.projectile.position.y >= GameWorld.Ground()) {
+                    item.projectile.position.y >= this.world.Ground()) {
 
-                    this.createExplosion({ x: item.projectile.position.x, y: GameWorld.Ground() });
+                    this.createExplosion({ x: item.projectile.position.x, y: this.world.Ground() });
 
                     return false;
                 }
@@ -109,7 +136,6 @@ define(['engine/updateables', 'engine/renderables', 'engine/constants/world', 'e
 
             this.timed_movements.create({
                 id: explosion.id,
-                total_time: 0,
                 duration: explosion.animation_duration,
                 update: explosion.update.bind(explosion)
             });

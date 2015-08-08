@@ -33,7 +33,7 @@ define(['engine/math/trig', 'engine/math/physics'], function(Trig, Physics) {
             };
         },
 
-        update: function(dt, updateables) {
+        update: function(dt) {
             if (this.projectile.position.x >= this.projectile.barrel_tip.x &&
                 this.projectile.position.y <= this.projectile.barrel_tip.y) {
                 this.projectile.acceleration.y -= Physics.ApplyGravity();

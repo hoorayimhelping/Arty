@@ -15,12 +15,12 @@ define(['js/engine/input'], function(Input) {
             });
 
             // curious to see how this pattern holds up
-            it("sets up 3 default keys", function() {
+            it("sets up 5 default keys", function() {
                 expect(Object.keys(input.active_keys).length).toEqual(0);
 
                 input.init();
 
-                expect(Object.keys(input.active_keys).length).toEqual(3);
+                expect(Object.keys(input.active_keys).length).toEqual(5);
             });
 
             it("sets up the defaults to be false", function() {

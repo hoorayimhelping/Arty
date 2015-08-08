@@ -29,7 +29,7 @@
             margin: 0 auto;
             padding: 0;
             width: 95%;
-            height: 600px;
+            height: 520px;
 
             -moz-box-sizing: border-box;
             -webkit-box-sizing: border-box;
@@ -56,13 +56,20 @@
             font-family: Helvetica;
             font-size: 15px;
         }
+
+        p {
+            display: inline-block;
+            font-family: helvetica;
+            font-size: 11pt;
+            font-weight: 100;
+            margin-left: 30px;
+        }
     </style>
 </head>
 <body class="noselect">
-    <div id="performance"></div>
+    <div id="performance"></div><p>Spacebar fires | <strong>Up, Down:</strong> <em>Move Barrel.</em> <strong>Left, Right:</strong> <em>Adjust muzzle velocity</em></p>
     <div class="container">
         <canvas id="canvas">It looks like your browser doesn't support Canvas</canvas>
-        <p>Spacebar fires<br>Arrow keys move the barrel up and down</p>
     </div>
     <script data-main="js/main" src="lib/require.js"></script>
 </body>
