@@ -2,8 +2,9 @@ define(['engine/updateables', 'engine/renderables', 'engine/constants/world', 'e
        function(Updateables, Renderables, GameWorld, Explosion, TimedMovement) {
     'use strict';
 
-    var GameController = function(renderer, input, performance_monitor, cannon) {
+    var GameController = function(renderer, text_renderer, input, performance_monitor, cannon) {
         this.renderer = renderer;
+        this.text_renderer = text_renderer;
         this.performance_monitor = performance_monitor;
 
         this.total_time_running = 0;
@@ -76,6 +77,21 @@ define(['engine/updateables', 'engine/renderables', 'engine/constants/world', 'e
                 }
 
                 var projectile = this.cannon.fire();
+
+                this.renderables.filter(function(renderable) {
+                    if (renderable.hasOwnProperty('id') &&
+                        renderable.id === 'angle_text') {
+                        return false;
+                    }
+
+                    return true;
+                }.bind(this));
+
+                this.renderables.add({
+                    id: 'angle_text',
+                    render: this.text_renderer.renderText.bind(this.text_renderer),
+                    args: {text: 'Power: ' + (this.cannon.cannon.muzzle_velocity.current * 1000).toFixed(3) + ' Angle:' + this.cannon.cannon.angle.toFixed(2), coords: { x: 0, y: 20 }}
+                });
 
                 this.projectiles.add({
                     id: projectile.context.id,
