@@ -1,5 +1,5 @@
 requirejs([
-    'engine/game_controller',
+    'game/controller',
     'engine/renderer',
     'engine/text_renderer',
     'engine/input',

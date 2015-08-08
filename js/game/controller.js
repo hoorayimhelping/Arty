@@ -1,4 +1,4 @@
-define(['engine/updateables', 'engine/renderables', 'engine/constants/world', 'engine/effects/explosion', 'engine/timed_movement'],
+define(['game/updateables', 'game/renderables', 'engine/constants/world', 'engine/effects/explosion', 'game/timed_movement'],
        function(Updateables, Renderables, GameWorld, Explosion, TimedMovement) {
     'use strict';
 
