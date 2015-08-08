@@ -103,8 +103,6 @@ define(['engine/math/trig'], function(Trig) {
             this.projectile.projectile.barrel_tip.x = getCannonTipX(this.cannon);
             this.projectile.projectile.barrel_tip.y = getCannonTipY(this.cannon);
 
-console.log('muzzle velocity', this.cannon.muzzle_velocity.current);
-
             this.active_projectile_id = this.projectile.id;
 
             return {
