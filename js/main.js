@@ -1,12 +1,12 @@
 requirejs([
+    'engine/constants/world',
     'game/controller',
     'engine/renderer',
-    'engine/text_renderer',
     'engine/input',
     'engine/performance_monitor',
     'cannon',
     'projectile'
-    ], function(GameController, Renderer, TextRenderer, Input, PerformanceMonitor, Cannon, Projectile) {
+    ], function(GameWorld, GameController, Renderer, Input, PerformanceMonitor, Cannon, Projectile) {
     'use strict';
 
     window.canvasWidth = function() {
@@ -22,7 +22,6 @@ requirejs([
     var context = $canvas.getContext('2d');
 
     var renderer = new Renderer(context);
-    var text_renderer = new TextRenderer(context);
     var input = new Input($canvas);
     var performance_monitor = new PerformanceMonitor($performance);
 
@@ -31,7 +30,7 @@ requirejs([
 
     var cannon = new Cannon(projectile);
 
-    var controller = new GameController(renderer, text_renderer, input, performance_monitor, cannon);
+    var controller = new GameController(GameWorld, renderer, input, performance_monitor, cannon);
     controller.init();
 
     var initCannons = function() {
@@ -48,7 +47,6 @@ requirejs([
 
         // changing the canvas width or height re-initializes the canvas' state, including transforms and fill colors
         renderer.init();
-        text_renderer.init();
         initCannons();
     };
 

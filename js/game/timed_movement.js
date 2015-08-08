@@ -8,6 +8,7 @@ define([], function() {
 
     TimedMovement.prototype = {
         create: function(updateable) {
+            updateable.total_time = 0;
             this.timed_movements.push(updateable);
         },
 

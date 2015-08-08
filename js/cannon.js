@@ -70,8 +70,6 @@ define(['engine/math/trig'], function(Trig) {
             if (this.cannon.muzzle_velocity.current < this.cannon.muzzle_velocity.min) {
                 this.cannon.muzzle_velocity.current = this.cannon.muzzle_velocity.min;
             }
-
-            console.log('muzzle velocity', this.cannon.muzzle_velocity.current);
         },
 
         update: function(dt, input) {
